@@ -8,14 +8,14 @@ export const metadata: Metadata = {
   description: "United Fin Website",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   return (
     <html lang={locale}>
       <body className="font-sans antialiased text-gray-900 bg-white">

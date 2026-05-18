@@ -1,6 +1,6 @@
-import Contact from "../../../pages/contact/page";
+import Contact from "../../../views/contact/page";
 
-export default function Page({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return <Contact locale={locale} />;
 }
