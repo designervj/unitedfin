@@ -1,3 +1,5 @@
+"use client";
+
 import { Clock, Lightbulb, Users, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import { resolveProps } from "../../../lib/resolveProps";
