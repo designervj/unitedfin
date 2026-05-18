@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  /* ---------- Design Tokens ---------- */
+  --bs-bg: #ffffff;
+  --bs-surface: #f8f9fa;
+  --bs-primary: #1a1a1a;
+  --bs-accent: #0070f3;
+  --bs-text: #333333;
+  --bs-muted: #666666;
+  --bs-border: #eaeaea;
+  
+  --bs-radius-md: 12px;
+  --bs-radius-lg: 20px;
+}
+
+/* ---------- Typography Classes ---------- */
+.bs-h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; color: var(--bs-primary); }
+.bs-h2 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; color: var(--bs-primary); }
+.bs-body { font-size: 1.125rem; line-height: 1.6; color: var(--bs-text); }
+.bs-caption { font-size: 0.875rem; color: var(--bs-muted); }
+
+/* ---------- Utility Classes ---------- */
+.bs-text-primary { color: var(--bs-primary); }
+.bs-text-muted { color: var(--bs-muted); }
+.bs-text-accent { color: var(--bs-accent); }
+.bs-bg-surface { background: var(--bs-surface); }
+.bs-bg-accent { background: var(--bs-accent); color: white; }
+.bs-border { border: 1px solid var(--bs-border); }

@@ -1,0 +1,32 @@
+{
+  "id": "page_home",
+  "title": { "en": "United Fin | Home", "hi": "यूनाइटेड फिन | होम" },
+  "slug": "home",
+  "isPublished": true,
+  "content": [
+    {
+      "id": "sec_hero",
+      "type": "hero-section",
+      "props": {
+        "title": { "type": "text", "value": { "en": "Flexible Loans for your Business and Daily Needs", "hi": "Flexible Loans for your Business and Daily Needs" } },
+        "description": { "type": "textarea", "value": { "en": "Whether you're looking to refurbish your property, buy an asset or you just need cash for working capital, we want to help you and your business succeed", "hi": "Whether you're looking to refurbish your property, buy an asset or you just need cash for working capital, we want to help you and your business succeed" } },
+        "primaryCTA": { "type": "text", "value": { "en": "APPLY NOW", "hi": "APPLY NOW" } }
+      }
+    },
+    {
+      "id": "sec_trusted",
+      "type": "trusted-section",
+      "props": {
+        "title": { "type": "text", "value": { "en": "Trusted By 1000s", "hi": "Trusted By 1000s" } },
+        "description1": { "type": "textarea", "value": { "en": "For more than a decade, we have been successful financial partners to people from all walks of life. Our continuing commitment to you is best reflected in the recognition and awards United Finance has received over the years.", "hi": "For more than a decade, we have been successful financial partners to people from all walks of life. Our continuing commitment to you is best reflected in the recognition and awards United Finance has received over the years." } },
+        "description2": { "type": "textarea", "value": { "en": "The rate of interest is prone to fluctuation basis our internal credit and risk policy, and as per an algorithmic multivariate score card.", "hi": "The rate of interest is prone to fluctuation basis our internal credit and risk policy, and as per an algorithmic multivariate score card." } },
+        "features": { "type": "list", "value": [
+          { "en": "Quick Loan", "hi": "Quick Loan" },
+          { "en": "Online Application", "hi": "Online Application" },
+          { "en": "Hassle-Free", "hi": "Hassle-Free" },
+          { "en": "MSME Friendly", "hi": "MSME Friendly" }
+        ]}
+      }
+    }
+  ]
+}

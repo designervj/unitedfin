@@ -1,0 +1,8 @@
+{
+  "name": "United Finance Landing Page",
+  "description": "A landing page for United Finance offering flexible business loans and personal loans.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
