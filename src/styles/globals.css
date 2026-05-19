@@ -1,3 +1,6 @@
+/* ── Google Fonts — 2025 Trending Stack ────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap');
+
 @import "tailwindcss";
 
 /* ── Brand Colour Palette ─────────────────────────── */
@@ -10,13 +13,11 @@
   --color-brand-gray:   #F5F5F0;
   --color-brand-gray-dark: #EFEFEA;
 
-  /* Fonts */
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans:  "Inter", system-ui, sans-serif;
+  /* ── 2025 Trending Fonts ──────────────────────── */
+  --font-serif:    "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans:     "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono:     "DM Mono", monospace;
 }
-
-/* ── Google Fonts ─────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap');
 
 /* ── Base Reset ───────────────────────────────────── */
 *, *::before, *::after {
@@ -28,8 +29,20 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   background: #ffffff;
   color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Display & Headings — Bricolage Grotesque ─────── */
+h1, h2, h3, h4, .font-serif {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+}
+
+/* ── Monospace — amounts, numbers ────────────────── */
+.font-mono {
+  font-family: "DM Mono", monospace;
 }

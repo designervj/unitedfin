@@ -1,91 +1,96 @@
 "use client";
 
-import { PlusCircle, MinusCircle } from "lucide-react";
+import { motion } from "motion/react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    q: "Can I get a business loan for a new business from UNITED FINANCE AND LEASING PRIVATE LIMITED?",
-    a: "In order to qualify for our business loan, you must simply maintain an annual turnover of at least Rs.5 lakh. We require business vintage of minimum 3 years to lend the loan. We also offer loans for expansion.",
+    q: "What documents are required for a business loan?",
+    a: "Typically you need PAN card, Aadhaar, business registration proof, last 6 months bank statements, and basic KYC documents. Our team will guide you through the exact requirements.",
   },
   {
-    q: "Do I have to visit a physical branch to apply for a United Finance Business Loan?",
-    a: "You can apply online or visit any of our branches.",
+    q: "How long does loan approval take?",
+    a: "We aim to approve loans within 24-48 hours of receiving complete documentation. In many cases, especially for gold loans, approval can be done within hours.",
   },
   {
-    q: "How can I apply for the United Finance Business Loan online?",
-    a: "Click on the apply now button and fill out the details.",
+    q: "Is United Finance RBI registered?",
+    a: "Yes, United Finance & Leasing Private Limited is a fully RBI-registered Non-Banking Financial Company (NBFC), compliant with all regulatory requirements.",
   },
   {
-    q: "How should I prepare when getting a business loan?",
-    a: "Gather all necessary documentation including bank statements, KYC, and business proofs.",
+    q: "What is the minimum and maximum loan amount?",
+    a: "Loan amounts vary by product. Micro loans start from ₹5,000, while business and mortgage loans can go up to ₹50 lakhs depending on eligibility and collateral.",
   },
   {
-    q: "How does the EMI calculator help with loan planning?",
-    a: "It helps you estimate your monthly obligations so you can plan your finances better.",
-  }
+    q: "Can I repay my loan early?",
+    a: "Yes, we allow early repayment. Minimal prepayment charges may apply depending on the loan type. Please contact our customer care for details on your specific loan.",
+  },
 ];
 
 export function FAQSection() {
-  const [openIdx, setOpenIdx] = useState(0);
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 bg-[#E2DFE3]">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-[1fr_2fr] gap-x-12 gap-y-12">
+    <section className="py-28 bg-gray-50">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            className="inline-block bg-orange-50 border border-orange-100 rounded-full px-4 py-1.5 text-xs font-bold text-orange-600 tracking-widest uppercase mb-5"
           >
-            <h2 className="text-4xl md:text-[3.2rem] font-serif font-bold text-[#202758] leading-[1.1] md:mt-2 tracking-tight">
-              Frequently<br />Asked<br />Questions
-            </h2>
+            FAQ
           </motion.div>
-          <div className="space-y-0">
-            {faqs.map((faq, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="border-b border-gray-400 overflow-hidden"
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-5xl font-serif font-bold text-gray-900"
+          >
+            Common Questions
+          </motion.h2>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07 }}
+              className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                open === i
+                  ? "bg-white border-orange-200 shadow-md shadow-orange-100"
+                  : "bg-white border-gray-100 hover:border-gray-200"
+              }`}
+            >
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between px-6 py-5 text-left"
               >
-                <button 
-                  onClick={() => setOpenIdx(openIdx === i ? -1 : i)}
-                  className="w-full flex justify-between items-center text-left py-5 group"
+                <span className={`font-semibold text-[15px] pr-4 ${open === i ? "text-orange-600" : "text-gray-800"}`}>
+                  {faq.q}
+                </span>
+                <ChevronDown
+                  size={18}
+                  className={`shrink-0 text-gray-400 transition-transform duration-300 ${open === i ? "rotate-180 text-orange-500" : ""}`}
+                />
+              </button>
+              {open === i && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="px-6 pb-6 text-gray-600 text-sm leading-relaxed"
                 >
-                  <h3 className="font-serif font-bold text-lg text-gray-900 pr-8 group-hover:text-brand-purple transition-colors">{faq.q}</h3>
-                  <motion.div
-                    animate={{ rotate: openIdx === i ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {openIdx === i ? 
-                      <MinusCircle className="w-6 h-6 shrink-0 text-brand-purple fill-white" strokeWidth={1.5} /> : 
-                      <PlusCircle className="w-6 h-6 shrink-0 text-black fill-white" strokeWidth={1.5} />
-                    }
-                  </motion.div>
-                </button>
-                <AnimatePresence>
-                  {openIdx === i && (
-                    <motion.div 
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <p className="text-gray-900 pb-6 pt-1 leading-relaxed text-[15px] font-medium pr-12">
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
+                  {faq.a}
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

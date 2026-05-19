@@ -1,86 +1,141 @@
 "use client";
 
 import { motion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const products = [
   {
-    image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    title: "Business Loan-MSME",
-    desc: "Get your business loan eligibility in minutes!.",
-    bg: "bg-brand-yellow",
+    title: "Business Loan",
+    sub: "MSME",
+    desc: "Grow your enterprise with working capital, machinery, and expansion funding.",
+    tag: "Most Popular",
+    color: "#EF7E22",
+    lightBg: "#FFF5EB",
+    image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80",
   },
   {
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    title: "Daily Business Loan-Micro Loan",
-    desc: "Apply for Daily Business or Micro MSME loans with Quick Disbursals.",
-    bg: "bg-brand-orange text-white",
-    darkText: true 
-  },
-  {
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    title: "Two Wheeler Loan",
-    desc: "We provide you with solutions that best fit your needs.",
-    bg: "bg-brand-yellow",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeefa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-    title: "Mortgage Loan",
-    desc: "Get your business loan eligibility in minutes!.",
-    bg: "bg-brand-yellow",
-  },
-  {
-    image: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", 
     title: "Gold Loan",
-    desc: "We provide you with solutions that best fit your needs.",
-    bg: "bg-brand-blue",
-    darkText: true
+    sub: "Instant Cash",
+    desc: "Unlock the value of your gold instantly — with maximum LTV and low interest.",
+    tag: "",
+    color: "#d4a017",
+    lightBg: "#FFFBEB",
+    image: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=800&q=80",
   },
   {
-    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
     title: "Personal Loan",
-    desc: "We provide you with solutions that best fit your needs.",
-    bg: "bg-brand-yellow",
-  }
+    sub: "Quick & Flexible",
+    desc: "For emergencies, medical expenses, weddings, or any personal financial need.",
+    tag: "",
+    color: "#ec4899",
+    lightBg: "#FFF0F7",
+    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    title: "Micro Loan",
+    sub: "Daily Business",
+    desc: "Empowering micro-entrepreneurs with daily-collection based quick loans.",
+    tag: "",
+    color: "#6366f1",
+    lightBg: "#F5F3FF",
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    title: "Two Wheeler Loan",
+    sub: "Vehicle Finance",
+    desc: "Drive your dream bike home today with fast processing and low EMIs.",
+    tag: "",
+    color: "#0ea5e9",
+    lightBg: "#F0F9FF",
+    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    title: "Mortgage Loan",
+    sub: "Property Backed",
+    desc: "Leverage your property to access large funds at competitive interest rates.",
+    tag: "",
+    color: "#10b981",
+    lightBg: "#F0FDF4",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeefa?auto=format&fit=crop&w=800&q=80",
+  },
 ];
 
 export function ProductsSection() {
   return (
-    <section id="services" className="py-24 bg-brand-gray-dark overflow-hidden">
+    <section className="py-24 bg-white" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h2 
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-[2.5rem] font-serif font-bold text-center text-[#14151a] mb-16 tracking-tight"
-        >
-          Our Products
-        </motion.h2>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-12 max-w-6xl mx-auto">
-          {products.map((item, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, y: 30 }}
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              whileHover={{ y: -5 }}
-              className={`${item.bg} rounded flex flex-col`}
+              className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4"
             >
-              <div className="px-4 pt-4">
-                <div className="w-full h-40 bg-white p-2 shadow-sm">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+              Our Products
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05 }}
+              className="text-4xl md:text-5xl font-serif font-bold text-gray-900"
+            >
+              Loans for Every Goal
+            </motion.h2>
+          </div>
+          <Link href="/services">
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-2 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shrink-0"
+            >
+              All Services <ArrowUpRight size={15} />
+            </motion.button>
+          </Link>
+        </div>
+
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {products.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: i * 0.07 }}
+              whileHover={{ y: -6 }}
+              className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+            >
+              {/* Top image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${p.color}dd, transparent)` }} />
+                {p.tag && (
+                  <div className="absolute top-3 right-3 bg-white text-xs font-bold px-3 py-1 rounded-full shadow" style={{ color: p.color }}>
+                    {p.tag}
+                  </div>
+                )}
+                <div className="absolute bottom-3 left-4">
+                  <div className="text-[10px] font-bold text-white/70 uppercase tracking-widest">{p.sub}</div>
+                  <div className="text-xl font-serif font-bold text-white">{p.title}</div>
                 </div>
               </div>
-              <div className={`pt-6 pb-8 px-6 flex-1 flex flex-col items-center text-center`}>
-                <h3 className={`font-serif font-bold text-[18px] mb-3 text-black`}>{item.title}</h3>
-                <p className={`text-[13px] font-medium mb-6 leading-relaxed text-black max-w-[250px]`}>{item.desc}</p>
-                <div className="mt-auto">
-                    <button className={`px-6 py-2 rounded-full border border-black font-semibold text-[13px] text-black transition-colors hover:bg-black hover:text-white tracking-wide`}>
-                      Know More
-                    </button>
-                </div>
+
+              {/* Body */}
+              <div className="p-5">
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">{p.desc}</p>
+                <Link href="/services">
+                  <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-all group-hover:gap-2.5" style={{ color: p.color }}>
+                    Know More <ArrowUpRight size={12} />
+                  </div>
+                </Link>
               </div>
             </motion.div>
           ))}

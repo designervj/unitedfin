@@ -1,4 +1,3 @@
 {
-  "/(root)/page": "app/(root)/page.js",
   "/[locale]/page": "app/[locale]/page.js"
 }
