@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Mail, ChevronRight, Users, ShieldCheck, Award, Briefcase } from "lucide-react";
 import Link from "next/link";
 
 const board = [
@@ -49,27 +49,138 @@ const committees = [
 export default function BoardOfDirectors({ locale }: { locale: string }) {
   return (
     <main className="min-h-screen bg-white">
-      {/* ── Hero ─────────────────────────── */}
-      <section className="relative bg-[#0f172a] overflow-hidden pt-36 pb-24">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EF7E22]/8 blur-[120px] rounded-full" />
-          <div className="absolute inset-0 opacity-[0.025]"
-            style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+
+      {/* ══════════════════════════════════════════════
+          CINEMATIC FULL-WIDTH HERO
+      ══════════════════════════════════════════════ */}
+      <section className="relative min-h-screen flex flex-col overflow-hidden">
+
+        {/* ── Full-bleed background image ── */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=2000&q=80"
+            alt="Leadership" className="w-full h-full object-cover object-center"
+          />
+          {/* Layered gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a14]/80 via-[#0a0a14]/60 to-[#0a0a14]/95" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a14]/70 via-transparent to-[#0a0a14]/30" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6">
-            <span className="text-orange-400 text-xs font-bold tracking-widest uppercase">Leadership</span>
-          </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="font-serif text-5xl md:text-6xl font-bold text-white mb-5">
-            Board of Directors
-          </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-            className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Our board brings together decades of expertise in finance, operations, and governance — steering United Finance towards sustainable growth.
-          </motion.p>
+
+        {/* ── Dot grid texture ── */}
+        <div className="absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+
+        {/* ── Orange diagonal accent line ── */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#EF7E22] to-transparent opacity-60" />
+
+        {/* ── Content ── */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6 lg:px-12 pt-36 pb-36">
+          <div className="max-w-3xl">
+
+            {/* Breadcrumb */}
+            <motion.nav initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-1.5 text-xs text-white/40 font-medium mb-8">
+              <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
+              <ChevronRight size={11} className="text-white/20" />
+              <Link href="/about" className="hover:text-white/70 transition-colors">About Us</Link>
+              <ChevronRight size={11} className="text-white/20" />
+              <span className="text-[#EF7E22] font-semibold">Board of Directors</span>
+            </motion.nav>
+
+            {/* Category tag */}
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
+              className="flex items-center gap-3 mb-7">
+              <div className="w-8 h-[2px] bg-[#EF7E22]" />
+              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">Leadership & Governance</span>
+            </motion.div>
+
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="font-serif font-bold text-white leading-[1.0] mb-7"
+              style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}
+            >
+              Trusted<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF7E22] to-[#f9a94b]">
+                Leadership.
+              </span>
+            </motion.h1>
+
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+              className="text-slate-300/80 text-[17px] leading-relaxed max-w-xl mb-10">
+              Seasoned professionals with decades of expertise in finance, law, and operations — steering United Finance toward sustainable, ethical growth.
+            </motion.p>
+
+            {/* Director avatars + CTA row */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
+              className="flex flex-wrap items-center gap-6">
+              {/* Avatar stack */}
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-3">
+                  {board.slice(0, 4).map((m, i) => (
+                    <div key={m.name}
+                      className="w-10 h-10 rounded-full border-2 border-[#0a0a14] overflow-hidden ring-1 ring-white/20"
+                      style={{ zIndex: 4 - i }}>
+                      <img src={m.img} alt={m.name} className="w-full h-full object-cover" />
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div className="text-white font-bold text-sm">{board.length} Directors</div>
+                  <div className="text-white/45 text-xs">on the board</div>
+                </div>
+              </div>
+
+              <div className="w-px h-8 bg-white/15" />
+
+              <Link href="/contact">
+                <motion.button whileHover={{ scale: 1.04, x: 4 }} whileTap={{ scale: 0.97 }}
+                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors">
+                  Contact Leadership <ArrowRight size={15} />
+                </motion.button>
+              </Link>
+
+              <Link href="/about">
+                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all">
+                  Our Company →
+                </button>
+              </Link>
+            </motion.div>
+          </div>
         </div>
+
+        {/* ── Frosted glass stats bar at bottom ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55, duration: 0.6 }}
+          className="relative z-10 border-t border-white/8 backdrop-blur-2xl"
+          style={{ background: "rgba(10,10,20,0.7)" }}
+        >
+          <div className="max-w-7xl mx-auto px-6 lg:px-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/8">
+              {[
+                { value: "4", label: "Board Directors", sub: "Active members" },
+                { value: "60+", label: "Combined Exp.", sub: "Years in finance" },
+                { value: "4", label: "Committees", sub: "Governance bodies" },
+                { value: "2014", label: "Established", sub: "RBI registered NBFC" },
+              ].map((s, i) => (
+                <motion.div key={s.label}
+                  initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 + i * 0.08 }}
+                  className="py-6 px-6 lg:px-8 group">
+                  <div className="font-serif text-2xl md:text-3xl font-bold text-[#EF7E22] mb-0.5 group-hover:scale-110 transition-transform origin-left">
+                    {s.value}
+                  </div>
+                  <div className="text-white font-semibold text-sm">{s.label}</div>
+                  <div className="text-white/35 text-xs mt-0.5">{s.sub}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* ── Board Members ─────────────────────────── */}

@@ -31,12 +31,12 @@ const navLinks = [
     label: "Services",
     href: "/services",
     children: [
-      { label: "Business Loan", href: "/services" },
-      { label: "MSME Loan", href: "/services" },
-      { label: "Gold Loan", href: "/services" },
-      { label: "Two Wheeler Loan", href: "/services" },
-      { label: "Mortgage Loan", href: "/services" },
-      { label: "Personal Loan", href: "/services" },
+      { label: "Business Loan", href: "/services/business-loan" },
+      { label: "MSME Loan", href: "/services/msme-loan" },
+      { label: "Gold Loan", href: "/services/gold-loan" },
+      { label: "Two Wheeler Loan", href: "/services/two-wheeler-loan" },
+      { label: "Mortgage Loan", href: "/services/mortgage-loan" },
+      { label: "Personal Loan", href: "/services/personal-loan" },
     ],
   },
   {
@@ -44,7 +44,7 @@ const navLinks = [
     href: "/emi-calculator",
     children: [
       { label: "EMI Calculator", href: "/emi-calculator" },
-      { label: "EMI Payment - QR Code", href: "/emi-calculator" },
+      { label: "EMI Payment - QR Code", href: "/emi-payment-qr-code" },
     ],
   },
   {

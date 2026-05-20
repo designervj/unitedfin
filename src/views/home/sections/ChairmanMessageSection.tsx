@@ -63,7 +63,9 @@ export function ChairmanMessageSection() {
               Notwithstanding the current phase of stress, we look forward to a year of growth and profitability, setting a new benchmark for the industry.
             </p>
 
+
             <div className="mt-10 flex items-center gap-4">
+              
               <div className="h-px flex-1 bg-gradient-to-r from-[#EF7E22]/50 to-transparent" />
               <div className="text-white/50 text-sm italic">Est. 2014 · Uttar Pradesh</div>
             </div>
