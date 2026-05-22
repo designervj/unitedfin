@@ -3,65 +3,80 @@
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { getTranslation } from "../../../lib/translations";
 
-const products = [
-  {
-    title: "Business Loan",
-    sub: "MSME",
-    desc: "Grow your enterprise with working capital, machinery, and expansion funding.",
-    tag: "Most Popular",
-    color: "#EF7E22",
-    lightBg: "#FFF5EB",
-    image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Gold Loan",
-    sub: "Instant Cash",
-    desc: "Unlock the value of your gold instantly — with maximum LTV and low interest.",
-    tag: "",
-    color: "#d4a017",
-    lightBg: "#FFFBEB",
-    image: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Personal Loan",
-    sub: "Quick & Flexible",
-    desc: "For emergencies, medical expenses, weddings, or any personal financial need.",
-    tag: "",
-    color: "#ec4899",
-    lightBg: "#FFF0F7",
-    image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Micro Loan",
-    sub: "Daily Business",
-    desc: "Empowering micro-entrepreneurs with daily-collection based quick loans.",
-    tag: "",
-    color: "#6366f1",
-    lightBg: "#F5F3FF",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Two Wheeler Loan",
-    sub: "Vehicle Finance",
-    desc: "Drive your dream bike home today with fast processing and low EMIs.",
-    tag: "",
-    color: "#0ea5e9",
-    lightBg: "#F0F9FF",
-    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    title: "Mortgage Loan",
-    sub: "Property Backed",
-    desc: "Leverage your property to access large funds at competitive interest rates.",
-    tag: "",
-    color: "#10b981",
-    lightBg: "#F0FDF4",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeefa?auto=format&fit=crop&w=800&q=80",
-  },
-];
+export function ProductsSection({ locale = "en" }: { locale?: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
 
-export function ProductsSection() {
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
+
+  const products = [
+    {
+      title: t.home.products.business.title,
+      sub: isHi ? "एमएसएमई" : "MSME",
+      desc: t.home.products.business.desc,
+      tag: isHi ? "सबसे लोकप्रिय" : "Most Popular",
+      color: "#EF7E22",
+      lightBg: "#FFF5EB",
+      image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: t.home.products.gold.title,
+      sub: isHi ? "तुरंत नकद" : "Instant Cash",
+      desc: t.home.products.gold.desc,
+      tag: "",
+      color: "#d4a017",
+      lightBg: "#FFFBEB",
+      image: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: t.home.products.personal.title,
+      sub: isHi ? "त्वरित और लचीला" : "Quick & Flexible",
+      desc: t.home.products.personal.desc,
+      tag: "",
+      color: "#ec4899",
+      lightBg: "#FFF0F7",
+      image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: t.home.products.msme.title,
+      sub: isHi ? "दैनिक व्यवसाय" : "Daily Business",
+      desc: t.home.products.msme.desc,
+      tag: "",
+      color: "#6366f1",
+      lightBg: "#F5F3FF",
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: t.home.products.twoWheeler.title,
+      sub: isHi ? "वाहन वित्त" : "Vehicle Finance",
+      desc: t.home.products.twoWheeler.desc,
+      tag: "",
+      color: "#0ea5e9",
+      lightBg: "#F0F9FF",
+      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: t.home.products.mortgage.title,
+      sub: isHi ? "संपत्ति आधारित" : "Property Backed",
+      desc: t.home.products.mortgage.desc,
+      tag: "",
+      color: "#10b981",
+      lightBg: "#F0FDF4",
+      image: "https://images.unsplash.com/photo-1560518883-ce09059eeefa?auto=format&fit=crop&w=800&q=80",
+    },
+  ];
+
   return (
     <section className="py-24 bg-white" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,9 +87,9 @@ export function ProductsSection() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4"
+              className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4 font-sans"
             >
-              Our Products
+              {t.common.services}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
@@ -83,16 +98,16 @@ export function ProductsSection() {
               transition={{ delay: 0.05 }}
               className="text-4xl md:text-5xl font-serif font-bold text-gray-900"
             >
-              Loans for Every Goal
+              {isHi ? "प्रत्येक लक्ष्य के लिए ऋण" : "Loans for Every Goal"}
             </motion.h2>
           </div>
-          <Link href="/services">
+          <Link href={getLocalizedHref("/services")}>
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shrink-0"
+              className="flex items-center gap-2 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shrink-0 cursor-pointer"
             >
-              All Services <ArrowUpRight size={15} />
+              {isHi ? "सभी सेवाएं" : "All Services"} <ArrowUpRight size={15} />
             </motion.button>
           </Link>
         </div>
@@ -107,7 +122,7 @@ export function ProductsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.07 }}
               whileHover={{ y: -6 }}
-              className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="group relative bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer animate-none"
             >
               {/* Top image */}
               <div className="relative h-48 overflow-hidden">
@@ -131,9 +146,9 @@ export function ProductsSection() {
               {/* Body */}
               <div className="p-5">
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">{p.desc}</p>
-                <Link href="/services">
+                <Link href={getLocalizedHref("/services")}>
                   <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest transition-all group-hover:gap-2.5" style={{ color: p.color }}>
-                    Know More <ArrowUpRight size={12} />
+                    {isHi ? "अधिक जानें" : "Know More"} <ArrowUpRight size={12} />
                   </div>
                 </Link>
               </div>

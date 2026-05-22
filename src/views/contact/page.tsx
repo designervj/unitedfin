@@ -2,8 +2,12 @@
 
 import { motion } from "motion/react";
 import { MapPin, Phone, Mail, UserCheck, Clock, Send, MessageCircle } from "lucide-react";
+import { getTranslation } from "../../lib/translations";
 
 export default function Contact({ locale }: { locale: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
+
   return (
     <main className="min-h-screen bg-white">
       {/* ── Hero ─────────────────────────── */}
@@ -16,15 +20,15 @@ export default function Contact({ locale }: { locale: string }) {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6">
-            <span className="text-orange-400 text-xs font-bold tracking-widest uppercase">Contact Us</span>
+            <span className="text-orange-400 text-xs font-bold tracking-widest uppercase">{t.common.contactUs}</span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="font-serif text-5xl md:text-6xl font-bold text-white mb-5">
-            We're Here to Help
+            {t.contactPage.title}
           </motion.h1>
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             className="text-slate-400 text-lg max-w-lg mx-auto">
-            Reach out to our team — we respond within 2 business hours.
+            {t.contactPage.subtitle}
           </motion.p>
         </div>
       </section>
@@ -34,9 +38,9 @@ export default function Contact({ locale }: { locale: string }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-3 gap-5">
             {[
-              { icon: <Phone size={22} />, label: "Call Us", value: "+91 9151766671\n+91 9151030011", color: "text-orange-500 bg-orange-50" },
-              { icon: <Mail size={22} />, label: "Email Us", value: "info@unitedfin.in", color: "text-blue-500 bg-blue-50" },
-              { icon: <Clock size={22} />, label: "Working Hours", value: "Mon–Sat\n10:00 AM – 5:00 PM", color: "text-emerald-500 bg-emerald-50" },
+              { icon: <Phone size={22} />, label: t.common.callUs, value: "+91 9151766671\n+91 9151030011", color: "text-orange-500 bg-orange-50" },
+              { icon: <Mail size={22} />, label: t.common.email, value: "info@unitedfin.in", color: "text-blue-500 bg-blue-50" },
+              { icon: <Clock size={22} />, label: t.common.workingHours, value: isHi ? "सोमवार–शनिवार\nसुबह 10:00 – शाम 5:00" : "Mon–Sat\n10:00 AM – 5:00 PM", color: "text-emerald-500 bg-emerald-50" },
             ].map((item, i) => (
               <motion.div
                 key={item.label}
@@ -50,7 +54,7 @@ export default function Contact({ locale }: { locale: string }) {
                   {item.icon}
                 </div>
                 <div className="font-bold text-gray-900 mb-1.5">{item.label}</div>
-                <div className="text-gray-600 text-sm whitespace-pre-line">{item.value}</div>
+                <div className="text-gray-600 text-sm whitespace-pre-line leading-relaxed">{item.value}</div>
               </motion.div>
             ))}
           </div>
@@ -68,40 +72,39 @@ export default function Contact({ locale }: { locale: string }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="font-serif text-3xl font-bold text-gray-900 mb-8">Get in Touch</h2>
+              <h2 className="font-serif text-3xl font-bold text-gray-900 mb-8">{t.contactPage.getInTouch}</h2>
 
               {/* Head Office */}
               <div className="mb-8 p-6 bg-gray-50 rounded-2xl border border-gray-100">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <MapPin size={16} className="text-orange-500" /> Head Office
+                  <MapPin size={16} className="text-orange-500" /> {t.contactPage.officeTitle}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Plot No 121, Block-B, Pocket-4, Sector-23 Dwarka,<br />
-                  New Delhi — 110075, India
+                  {t.footer.headOfficeAddress}
                 </p>
               </div>
 
               {/* Grievance */}
               <div className="mb-8 p-6 bg-gray-50 rounded-2xl border border-gray-100">
                 <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <UserCheck size={16} className="text-orange-500" /> Grievance Officer
+                  <UserCheck size={16} className="text-orange-500" /> {t.common.grievance}
                 </h3>
-                <p className="font-semibold text-gray-800 text-sm mb-1">Principal Nodal Officer</p>
-                <p className="text-gray-600 text-sm mb-1">Mr. Sharma</p>
-                <p className="text-gray-500 text-xs">Timings: 10:00 AM – 5:00 PM (Mon–Fri)</p>
+                <p className="font-semibold text-gray-800 text-sm mb-1">{isHi ? "प्रधान नोडल अधिकारी" : "Principal Nodal Officer"}</p>
+                <p className="text-gray-600 text-sm mb-1">{isHi ? "श्री अनिकेत वर्मा" : "Mr. Aniket Verma"}</p>
+                <p className="text-gray-500 text-xs">{isHi ? "समय: सुबह 10:00 – शाम 5:00 (सोम–शुक्र)" : "Timings: 10:00 AM – 5:00 PM (Mon–Fri)"}</p>
                 <div className="mt-3 space-y-1">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Phone size={13} className="text-orange-500" /> +91 98765 43210
+                    <Phone size={13} className="text-orange-500" /> +91 9151766673
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Mail size={13} className="text-orange-500" /> grievance@unitedfin.in
+                    <Mail size={13} className="text-orange-500" /> compliance@unitedfin.in
                   </div>
                 </div>
               </div>
 
               {/* Map placeholder */}
               <div className="rounded-2xl overflow-hidden h-48 bg-gray-100 border border-gray-100 flex items-center justify-center text-gray-400 text-sm">
-                <MapPin className="mr-2 text-orange-400" size={18} /> New Delhi, India
+                <MapPin className="mr-2 text-orange-400" size={18} /> {isHi ? "नई दिल्ली, भारत" : "New Delhi, India"}
               </div>
             </motion.div>
 
@@ -117,37 +120,45 @@ export default function Contact({ locale }: { locale: string }) {
                   <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
                     <MessageCircle size={18} />
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-white">Send a Message</h3>
+                  <h3 className="font-serif text-xl font-bold text-white">{t.contactPage.formTitle}</h3>
                 </div>
 
                 <div className="space-y-4">
-                  {[
-                    { label: "Full Name", type: "text", ph: "Your full name" },
-                    { label: "Email Address", type: "email", ph: "you@example.com" },
-                    { label: "Phone Number", type: "tel", ph: "+91 98765 43210" },
-                  ].map((f) => (
-                    <div key={f.label}>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{f.label}</label>
-                      <input type={f.type} placeholder={f.ph}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder:text-gray-600 text-sm outline-none focus:border-orange-500/60 transition-all"
-                      />
-                    </div>
-                  ))}
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{t.contactPage.formName}</label>
+                    <input type="text" placeholder={isHi ? "आपका पूरा नाम" : "Your full name"}
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder:text-gray-600 text-sm outline-none focus:border-orange-500/60 transition-all"
+                    />
+                  </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Subject</label>
-                    <select className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-gray-300 text-sm outline-none focus:border-orange-500/60 transition-all appearance-none">
-                      <option>Loan Enquiry</option>
-                      <option>EMI Related</option>
-                      <option>General Query</option>
-                      <option>Complaint / Grievance</option>
-                      <option>Career</option>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{t.contactPage.formEmail}</label>
+                    <input type="email" placeholder="you@example.com"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder:text-gray-600 text-sm outline-none focus:border-orange-500/60 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{t.contactPage.formPhone}</label>
+                    <input type="tel" placeholder="+91 98765 43210"
+                      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder:text-gray-600 text-sm outline-none focus:border-orange-500/60 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{t.contactPage.formSubject}</label>
+                    <select className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-gray-300 text-sm outline-none focus:border-orange-500/60 transition-all appearance-none cursor-pointer">
+                      <option>{isHi ? "ऋण पूछताछ" : "Loan Enquiry"}</option>
+                      <option>{isHi ? "ईएमआई संबंधित" : "EMI Related"}</option>
+                      <option>{isHi ? "सामान्य प्रश्न" : "General Query"}</option>
+                      <option>{isHi ? "शिकायत / निवारण" : "Complaint / Grievance"}</option>
+                      <option>{isHi ? "करियर" : "Career"}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">Message</label>
-                    <textarea rows={4} placeholder="How can we help you?"
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1.5">{t.contactPage.formMessage}</label>
+                    <textarea rows={4} placeholder={isHi ? "हम आपकी किस प्रकार सहायता कर सकते हैं?" : "How can we help you?"}
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder:text-gray-600 text-sm outline-none focus:border-orange-500/60 transition-all resize-none"
                     />
                   </div>
@@ -155,9 +166,9 @@ export default function Contact({ locale }: { locale: string }) {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full flex items-center justify-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-orange-900/30 text-sm"
+                    className="w-full flex items-center justify-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-orange-900/30 text-sm cursor-pointer"
                   >
-                    <Send size={15} /> Send Message
+                    <Send size={15} /> {t.contactPage.formSend}
                   </motion.button>
                 </div>
               </div>

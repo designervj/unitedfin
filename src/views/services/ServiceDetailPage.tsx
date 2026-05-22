@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { CheckCircle2, ArrowRight, ChevronRight, Clock, FileText, Users, Sparkles } from "lucide-react";
+import { CheckCircle2, ArrowRight, ChevronRight, FileText, Users, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { getTranslation } from "../../lib/translations";
 
 interface ServicePageProps {
   locale: string;
@@ -25,6 +26,20 @@ interface ServicePageProps {
 }
 
 export default function ServiceDetailPage({ locale, service }: ServicePageProps) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
+
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
+
   return (
     <main className="min-h-screen bg-white">
 
@@ -48,9 +63,13 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
             {/* Breadcrumb */}
             <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
               className="flex items-center gap-1.5 text-xs text-white/35 font-medium mb-6">
-              <Link href="/" className="hover:text-white/60 transition-colors">Home</Link>
+              <Link href={getLocalizedHref("/")} className="hover:text-white/60 transition-colors">
+                {isHi ? "मुख्य पृष्ठ" : "Home"}
+              </Link>
               <ChevronRight size={12} />
-              <Link href="/services" className="hover:text-white/60 transition-colors">Services</Link>
+              <Link href={getLocalizedHref("/services")} className="hover:text-white/60 transition-colors">
+                {isHi ? "ऋण सेवाएं" : "Services"}
+              </Link>
               <ChevronRight size={12} />
               <span className={`${service.color} font-semibold`}>{service.title}</span>
             </motion.div>
@@ -86,22 +105,22 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
             {/* CTA Buttons */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
               className="flex flex-wrap gap-3 mb-12">
-              <Link href="/contact">
+              <Link href={getLocalizedHref("/contact")}>
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm transition-colors shadow-lg shadow-orange-900/30"
+                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm transition-colors shadow-lg shadow-orange-900/30 cursor-pointer"
                 >
-                  Apply Now <ArrowRight size={15} />
+                  {t.common.applyNow} <ArrowRight size={15} />
                 </motion.button>
               </Link>
-              <Link href="/emi-calculator">
+              <Link href={getLocalizedHref("/emi-calculator")}>
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 border border-white/10 hover:border-white/25 bg-white/5 text-white font-semibold px-7 py-3.5 rounded-2xl text-sm transition-all"
+                  className="flex items-center gap-2 border border-white/10 hover:border-white/25 bg-white/5 text-white font-semibold px-7 py-3.5 rounded-2xl text-sm transition-all cursor-pointer"
                 >
-                  Calculate EMI
+                  {t.common.calculateEmi}
                 </motion.button>
               </Link>
             </motion.div>
@@ -137,43 +156,6 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a14] via-[#0a0a14]/60 to-transparent" />
           {/* Dark top/bottom overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a14]/30 via-transparent to-[#0a0a14]/60" />
-
-          {/* Floating badge — top right */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="absolute top-36 right-8 bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl px-5 py-3 text-white"
-          >
-            <div className="text-[10px] text-white/50 uppercase tracking-widest mb-0.5">Processing Time</div>
-            <div className="font-bold text-lg flex items-center gap-2">
-              <Clock size={15} className="text-[#EF7E22]" /> 24 Hours
-            </div>
-          </motion.div> */}
-
-          {/* Floating badge — bottom right */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="absolute bottom-20 right-8 bg-white/10 backdrop-blur-xl border border-white/15 rounded-2xl px-5 py-3 text-white"
-          >
-            <div className="text-[10px] text-white/50 uppercase tracking-widest mb-0.5">Minimal Docs</div>
-            <div className="font-bold text-lg flex items-center gap-2">
-              <FileText size={15} className="text-[#EF7E22]" /> 100% Online
-            </div>
-          </motion.div> */}
-
-          {/* Floating badge — mid left on image */}
-          {/* <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8 }}
-            className="absolute top-1/2 -translate-y-1/2 right-[38%] bg-[#EF7E22] rounded-2xl px-4 py-2.5 text-white shadow-xl"
-          >
-            <div className="text-[9px] uppercase tracking-widest mb-0.5 opacity-80">Trusted By</div>
-            <div className="font-bold text-base">10,000+ Customers</div>
-          </motion.div> */}
         </div>
       </section>
 
@@ -187,10 +169,10 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
             {/* Features */}
             <div>
               <span className={`inline-block text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-5 ${service.bgColor} ${service.color}`}>
-                Key Benefits
+                {t.loanDetail.badge}
               </span>
               <h2 className="font-serif text-4xl font-bold text-gray-900 mb-8">
-                Why Choose Our<br />{service.title}?
+                {t.loanDetail.whyChoose}<br />{service.title}?
               </h2>
               <div className="space-y-3">
                 {service.features.map((f, i) => (
@@ -214,7 +196,7 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
                   <span className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
                     <Users size={16} className="text-[#EF7E22]" />
                   </span>
-                  Eligibility Criteria
+                  {t.loanDetail.eligibility}
                 </h3>
                 <ul className="space-y-3">
                   {service.eligibility.map((e, i) => (
@@ -232,7 +214,7 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
                   <span className="w-8 h-8 rounded-lg bg-orange-500/15 flex items-center justify-center">
                     <FileText size={16} className="text-[#EF7E22]" />
                   </span>
-                  Documents Required
+                  {t.loanDetail.docs}
                 </h3>
                 <ul className="space-y-2.5">
                   {service.documents.map((d, i) => (
@@ -254,25 +236,24 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
       <section className="py-20 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">How It Works</span>
-            <h2 className="font-serif text-3xl font-bold text-gray-900">Apply in 4 Easy Steps</h2>
+            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              {t.loanDetail.howItWorks}
+            </span>
+            <h2 className="font-serif text-3xl font-bold text-gray-900">
+              {t.loanDetail.apply4}
+            </h2>
           </div>
           <div className="grid md:grid-cols-4 gap-6 relative">
             <div className="hidden md:block absolute top-8 left-[12%] right-[12%] h-px bg-gradient-to-r from-orange-100 via-orange-400 to-orange-100" />
-            {[
-              { n: "01", t: "Apply Online", d: "Fill our simple application form." },
-              { n: "02", t: "Submit Docs", d: "Upload minimal KYC & income documents." },
-              { n: "03", t: "Quick Approval", d: "Decision within 24 hours." },
-              { n: "04", t: "Get Funds", d: "Money in your account instantly." },
-            ].map((s, i) => (
-              <motion.div key={s.n}
+            {t.loanDetail.steps.map((s, i) => (
+              <motion.div key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.12 }}
                 className="text-center relative z-10">
                 <div className="w-16 h-16 rounded-2xl bg-[#EF7E22] text-white font-serif font-bold text-xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-100">
-                  {s.n}
+                  {`0${i + 1}`}
                 </div>
                 <div className="font-bold text-gray-900 mb-1 text-sm">{s.t}</div>
                 <div className="text-gray-500 text-xs">{s.d}</div>
@@ -293,25 +274,30 @@ export default function ServiceDetailPage({ locale, service }: ServicePageProps)
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <div className={`inline-flex items-center gap-2 ${service.bgColor} border border-current/10 rounded-full px-4 py-1.5 mb-6`}>
               <Sparkles size={11} className={service.color} />
-              <span className={`${service.color} text-[10px] font-bold tracking-[0.2em] uppercase`}>Ready to Apply?</span>
+              <span className={`${service.color} text-[10px] font-bold tracking-[0.2em] uppercase`}>
+                {t.loanDetail.readyApply}
+              </span>
             </div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">
-              Get Your {service.title}<br />Approved in 24 Hours
+              {isHi 
+                ? `आपका ${service.title} 24 घंटे में स्वीकृत` 
+                : `Get Your ${service.title} Approved in 24 Hours`
+              }
             </h2>
             <p className="text-slate-400 mb-10 leading-relaxed">
-              Minimal paperwork, transparent terms, and dedicated support — every step of the way.
+              {t.loanDetail.ctaSub}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link href="/contact">
+              <Link href={getLocalizedHref("/contact")}>
                 <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-orange-900/30 transition-colors text-sm">
-                  Apply Now <ArrowRight size={15} />
+                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-orange-900/30 transition-colors text-sm cursor-pointer">
+                  {t.common.applyNow} <ArrowRight size={15} />
                 </motion.button>
               </Link>
-              <Link href="/emi-calculator">
+              <Link href={getLocalizedHref("/emi-calculator")}>
                 <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 border border-white/15 hover:border-white/30 text-white font-bold px-10 py-4 rounded-2xl transition-all text-sm bg-white/5">
-                  Calculate EMI
+                  className="flex items-center gap-2 border border-white/15 hover:border-white/30 text-white font-bold px-10 py-4 rounded-2xl transition-all text-sm bg-white/5 cursor-pointer">
+                  {t.common.calculateEmi}
                 </motion.button>
               </Link>
             </div>

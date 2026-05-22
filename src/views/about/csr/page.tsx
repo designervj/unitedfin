@@ -1,34 +1,47 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, Heart, Leaf, Users, BookOpen, HandshakeIcon, ChevronRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, Heart, Leaf, Users, BookOpen, HandshakeIcon, ChevronRight } from "lucide-react";
 import Link from "next/link";
-
-const csrAreas = [
-  { icon: <BookOpen size={22} />, title: "Education", desc: "Supporting underprivileged children with school scholarships, stationery, and digital learning resources in rural UP.", color: "text-blue-500 bg-blue-50" },
-  { icon: <Heart size={22} />, title: "Healthcare", desc: "Organizing free medical camps, health check-ups, and awareness drives in partnership with local hospitals.", color: "text-rose-500 bg-rose-50" },
-  { icon: <Leaf size={22} />, title: "Environment", desc: "Tree plantation drives, clean-up campaigns, and promoting green lending practices to protect our planet.", color: "text-emerald-500 bg-emerald-50" },
-  { icon: <Users size={22} />, title: "Women Empowerment", desc: "Financial literacy programs for women, SHG group lending, and training workshops across villages.", color: "text-purple-500 bg-purple-50" },
-  { icon: <HandshakeIcon size={22} />, title: "Rural Development", desc: "Providing micro-enterprise loans to artisans, weavers, and farmers for sustainable rural income generation.", color: "text-amber-500 bg-amber-50" },
-  { icon: <Users size={22} />, title: "Financial Inclusion", desc: "Taking formal credit to the unbanked through doorstep banking, digital onboarding, and multilingual support.", color: "text-orange-500 bg-orange-50" },
-];
-
-const policies = [
-  { title: "Fair Practice Code", desc: "Transparent communication, no hidden charges, and ethical collection practices." },
-  { title: "KYC/AML Policy", desc: "Strict adherence to Know Your Customer and Anti-Money Laundering guidelines." },
-  { title: "Grievance Redressal", desc: "A dedicated Principal Nodal Officer handles all customer complaints within 30 days." },
-  { title: "Data Privacy Policy", desc: "Customer data is secured with industry-standard encryption and never shared without consent." },
-  { title: "Interest Rate Policy", desc: "Rates are disclosed upfront, linked to credit score, and reviewed quarterly." },
-  { title: "Outsourcing Policy", desc: "All vendor relationships are governed by RBI's outsourcing guidelines for NBFCs." },
-];
+import { getTranslation } from "../../../lib/translations";
 
 export default function CsrAndPolicies({ locale }: { locale: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
+
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
+
+  const csrAreas = [
+    { icon: <BookOpen size={22} />, title: t.csrPage.csrAreas[0].title, desc: t.csrPage.csrAreas[0].desc, color: "text-blue-500 bg-blue-50" },
+    { icon: <Heart size={22} />, title: t.csrPage.csrAreas[1].title, desc: t.csrPage.csrAreas[1].desc, color: "text-rose-500 bg-rose-50" },
+    { icon: <Leaf size={22} />, title: t.csrPage.csrAreas[2].title, desc: t.csrPage.csrAreas[2].desc, color: "text-emerald-500 bg-emerald-50" },
+    { icon: <Users size={22} />, title: t.csrPage.csrAreas[3].title, desc: t.csrPage.csrAreas[3].desc, color: "text-purple-500 bg-purple-50" },
+    { icon: <HandshakeIcon size={22} />, title: t.csrPage.csrAreas[4].title, desc: t.csrPage.csrAreas[4].desc, color: "text-amber-500 bg-amber-50" },
+    { icon: <Users size={22} />, title: t.csrPage.csrAreas[5].title, desc: t.csrPage.csrAreas[5].desc, color: "text-orange-500 bg-orange-50" },
+  ];
+
+  const policies = [
+    { title: t.csrPage.policies[0].title, desc: t.csrPage.policies[0].desc },
+    { title: t.csrPage.policies[1].title, desc: t.csrPage.policies[1].desc },
+    { title: t.csrPage.policies[2].title, desc: t.csrPage.policies[2].desc },
+    { title: t.csrPage.policies[3].title, desc: t.csrPage.policies[3].desc },
+    { title: t.csrPage.policies[4].title, desc: t.csrPage.policies[4].desc },
+    { title: t.csrPage.policies[5].title, desc: t.csrPage.policies[5].desc },
+  ];
+
   return (
     <main className="min-h-screen bg-white">
 
-      {/* ══════════════════════════════════════════════
-          CINEMATIC FULL-WIDTH HERO
-      ══════════════════════════════════════════════ */}
+      {/* ── CINEMATIC FULL-WIDTH HERO ── */}
       <section className="relative min-h-screen flex flex-col overflow-hidden">
 
         {/* Full-bleed background */}
@@ -55,18 +68,20 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
             {/* Breadcrumb */}
             <motion.nav initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
               className="flex items-center gap-1.5 text-xs text-white/40 font-medium mb-8">
-              <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
+              <Link href={getLocalizedHref("/")} className="hover:text-white/70 transition-colors">{t.common.home}</Link>
               <ChevronRight size={11} className="text-white/20" />
-              <Link href="/about" className="hover:text-white/70 transition-colors">About Us</Link>
+              <Link href={getLocalizedHref("/about")} className="hover:text-white/70 transition-colors">{t.common.aboutCompany}</Link>
               <ChevronRight size={11} className="text-white/20" />
-              <span className="text-[#EF7E22] font-semibold">CSR & Policies</span>
+              <span className="text-[#EF7E22] font-semibold">{t.common.csr}</span>
             </motion.nav>
 
             {/* Category tag */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
               className="flex items-center gap-3 mb-7">
               <div className="w-8 h-[2px] bg-[#EF7E22]" />
-              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">Social Responsibility · Ethical Finance</span>
+              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">
+                {t.csrPage.badge}
+              </span>
             </motion.div>
 
             {/* Heading */}
@@ -77,38 +92,38 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
               className="font-serif font-bold text-white leading-[1.0] mb-7"
               style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}
             >
-              Giving Back to<br />
+              {t.csrPage.title1}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF7E22] to-[#f9a94b]">
-                Our Community.
+                {t.csrPage.title2}
               </span>
             </motion.h1>
 
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
               className="text-slate-300/80 text-[17px] leading-relaxed max-w-2xl mb-10">
-              We believe business growth and social responsibility go hand-in-hand. Our CSR efforts focus on education, healthcare, and financial inclusion across Uttar Pradesh.
+              {t.csrPage.desc}
             </motion.p>
 
             {/* CTA row */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
               className="flex flex-wrap items-center gap-5">
-              <Link href="/contact">
+              <Link href={getLocalizedHref("/contact")}>
                 <motion.button whileHover={{ scale: 1.04, x: 4 }} whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors">
-                  Partner With Us <ArrowRight size={15} />
+                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors cursor-pointer">
+                  {t.csrPage.partnerBtn} <ArrowRight size={15} />
                 </motion.button>
               </Link>
 
               <div className="w-px h-8 bg-white/15" />
 
-              <Link href="/about">
-                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all">
-                  Our Company →
+              <Link href={getLocalizedHref("/about")}>
+                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all cursor-pointer">
+                  {t.common.aboutCompany} →
                 </button>
               </Link>
 
-              <Link href="/about/directors">
-                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all">
-                  Leadership →
+              <Link href={getLocalizedHref("/about/directors")}>
+                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all cursor-pointer">
+                  {t.common.directors} →
                 </button>
               </Link>
             </motion.div>
@@ -126,10 +141,10 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/8">
               {[
-                { value: "6", label: "CSR Programs", sub: "Active initiatives" },
-                { value: "1,000+", label: "Lives Impacted", sub: "In 2024 alone" },
-                { value: "6", label: "Policy Areas", sub: "RBI compliant" },
-                { value: "2018", label: "CSR Since", sub: "Community first" },
+                { value: "6", label: isHi ? "सीएसआर कार्यक्रम" : "CSR Programs", sub: isHi ? "सक्रिय सामाजिक पहल" : "Active initiatives" },
+                { value: "1,000+", label: isHi ? "प्रभावित परिवार" : "Lives Impacted", sub: isHi ? "केवल 2024 में" : "In 2024 alone" },
+                { value: "6", label: isHi ? "नीतिगत क्षेत्र" : "Policy Areas", sub: isHi ? "आरबीआई अनुपालन" : "RBI compliant" },
+                { value: "2018", label: isHi ? "सीएसआर प्रारंभ" : "CSR Since", sub: isHi ? "समुदाय पहले" : "Community first" },
               ].map((s, i) => (
                 <motion.div key={s.label}
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -151,9 +166,11 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">Our Impact</span>
-            <h2 className="font-serif text-4xl font-bold text-gray-900">CSR Initiatives</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-[15px]">We allocate a dedicated percentage of profits every year to community welfare and social development programs.</p>
+            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              {isHi ? "हमारा सामाजिक प्रभाव" : "Our Impact"}
+            </span>
+            <h2 className="font-serif text-4xl font-bold text-gray-900">{t.csrPage.csrTitle}</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-[15px]">{t.csrPage.csrSub}</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {csrAreas.map((area, i) => (
@@ -185,8 +202,8 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
           <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/90 via-[#0f172a]/60 to-transparent" />
           <div className="absolute inset-0 flex items-center px-12 md:px-24">
             <div>
-              <div className="text-4xl font-serif font-bold text-white mb-2">1,000+ Lives Impacted</div>
-              <div className="text-orange-400 font-semibold">Through our CSR programs in 2024</div>
+              <div className="text-4xl font-serif font-bold text-white mb-2">1,000+ {isHi ? "से अधिक परिवार लाभान्वित" : "Lives Impacted"}</div>
+              <div className="text-orange-400 font-semibold">{isHi ? "हमारे सीएसआर कार्यक्रमों के माध्यम से वर्ष 2024 में" : "Through our CSR programs in 2024"}</div>
             </div>
           </div>
         </div>
@@ -196,9 +213,11 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
       <section className="py-24 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">Compliance</span>
-            <h2 className="font-serif text-4xl font-bold text-gray-900">Our Policies</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-[15px]">We operate with full transparency and regulatory compliance as mandated by the Reserve Bank of India.</p>
+            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              {isHi ? "अनुपालन एवं नियम" : "Compliance"}
+            </span>
+            <h2 className="font-serif text-4xl font-bold text-gray-900">{t.csrPage.policyTitle}</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto text-[15px]">{t.csrPage.policySub}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
             {policies.map((p, i) => (
@@ -223,19 +242,19 @@ export default function CsrAndPolicies({ locale }: { locale: string }) {
             ))}
           </div>
           <div className="mt-8 p-5 bg-blue-50 border border-blue-100 rounded-2xl text-sm text-blue-700 text-center">
-            All policies are available for download upon request. Write to us at <span className="font-semibold">compliance@unitedfin.in</span>
+            {t.csrPage.policyContact} <span className="font-semibold">compliance@unitedfin.in</span>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ─────────────────────────── */}
+      {/* ── CSR CTA ── */}
       <section className="py-20 bg-[#EF7E22]">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-serif text-4xl font-bold text-white mb-4">Committed to Responsible Finance</h2>
-          <p className="text-orange-100 mb-8">Learn more about how we're building a better financial future for all.</p>
-          <Link href="/contact">
-            <button className="bg-white text-[#EF7E22] font-bold px-10 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all text-sm inline-flex items-center gap-2">
-              Get in Touch <ArrowRight size={15} />
+          <h2 className="font-serif text-4xl font-bold text-white mb-4">{t.csrPage.responsibleTitle}</h2>
+          <p className="text-orange-100 mb-8">{t.csrPage.responsibleSub}</p>
+          <Link href={getLocalizedHref("/contact")}>
+            <button className="bg-white text-[#EF7E22] font-bold px-10 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all text-sm inline-flex items-center gap-2 cursor-pointer">
+              {isHi ? "संपर्क करें" : "Get in Touch"} <ArrowRight size={15} />
             </button>
           </Link>
         </div>

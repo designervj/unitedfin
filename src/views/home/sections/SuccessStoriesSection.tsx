@@ -3,18 +3,25 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { getTranslation } from "../../../lib/translations";
 
-const stories = [
-  { name: "Rajesh Kumar", location: "Lucknow, UP", loan: "Business Loan", amount: "₹8,00,000", img: "https://i.pravatar.cc/80?img=11", quote: "United Finance was a great support in helping me establish and grow my business. They helped me every step of the way, from documentation to final disbursement. Truly a trustworthy partner!" },
-  { name: "Priya Sharma", location: "Varanasi, UP", loan: "Gold Loan", amount: "₹2,50,000", img: "https://i.pravatar.cc/80?img=5", quote: "I needed funds urgently for my daughter's medical treatment. United Finance processed my gold loan within a few hours. Their staff was transparent and very kind throughout." },
-  { name: "Amit Verma", location: "Agra, UP", loan: "Two Wheeler Loan", amount: "₹85,000", img: "https://i.pravatar.cc/80?img=33", quote: "Completely hassle-free! Minimal documents, very fast approval. I got my two wheeler loan approved the same day and drove home my new bike." },
-];
+export function SuccessStoriesSection({ locale = "en" }: { locale?: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
 
-export function SuccessStoriesSection() {
+  const stories = (t.home.stories.storyList || []).map((story: any, i: number) => ({
+    name: story.name,
+    location: story.location,
+    loan: story.loan,
+    amount: story.amount,
+    img: `https://i.pravatar.cc/80?img=${[11, 5, 33, 12, 18, 47][i] || i + 10}`,
+    quote: story.quote
+  }));
+
   const [cur, setCur] = useState(0);
   const prev = () => setCur((c) => (c === 0 ? stories.length - 1 : c - 1));
   const next = () => setCur((c) => (c === stories.length - 1 ? 0 : c + 1));
-  const s = stories[cur];
+  const s = stories[cur] || { name: "", location: "", loan: "", amount: "", quote: "", img: "" };
 
   return (
     <section className="py-24 bg-gray-50 overflow-hidden">
@@ -26,9 +33,9 @@ export function SuccessStoriesSection() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-5"
+              className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-5 font-sans"
             >
-              Testimonials
+              {isHi ? "प्रशंसापत्र" : "Testimonials"}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
@@ -37,14 +44,14 @@ export function SuccessStoriesSection() {
               transition={{ delay: 0.05 }}
               className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-8"
             >
-              Real Stories,<br />Real Impact
+              {isHi ? "वास्तविक कहानियां," : "Real Stories,"}<br />{isHi ? "वास्तविक प्रभाव" : "Real Impact"}
             </motion.h2>
 
             {/* Counter */}
             <div className="flex items-center gap-4 mb-8">
               <button
                 onClick={prev}
-                className="w-12 h-12 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-[#EF7E22] hover:text-[#EF7E22] transition-colors"
+                className="w-12 h-12 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-[#EF7E22] hover:text-[#EF7E22] transition-colors cursor-pointer"
               >
                 <ChevronLeft size={20} />
               </button>
@@ -54,19 +61,19 @@ export function SuccessStoriesSection() {
               </span>
               <button
                 onClick={next}
-                className="w-12 h-12 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-[#EF7E22] hover:text-[#EF7E22] transition-colors"
+                className="w-12 h-12 rounded-xl border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-[#EF7E22] hover:text-[#EF7E22] transition-colors cursor-pointer"
               >
                 <ChevronRight size={20} />
               </button>
             </div>
 
             {/* Thumbnails */}
-            <div className="flex gap-3">
-              {stories.map((st, i) => (
+            <div className="flex flex-wrap gap-3">
+              {stories.map((st: any, i: number) => (
                 <button
                   key={i}
                   onClick={() => setCur(i)}
-                  className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all ${i === cur ? "border-[#EF7E22] scale-110 shadow-md" : "border-transparent opacity-50 hover:opacity-80"}`}
+                  className={`relative w-14 h-14 rounded-full overflow-hidden border-2 transition-all cursor-pointer ${i === cur ? "border-[#EF7E22] scale-110 shadow-md" : "border-transparent opacity-50 hover:opacity-80"}`}
                 >
                   <img src={st.img} alt={st.name} className="w-full h-full object-cover" />
                 </button>

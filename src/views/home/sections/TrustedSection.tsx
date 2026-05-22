@@ -3,31 +3,51 @@
 import { motion } from "motion/react";
 import { CheckCircle2, Clock, Lightbulb, Users, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { getTranslation } from "../../../lib/translations";
 
-const features = [
-  {
-    icon: <Clock className="w-5 h-5" />,
-    title: "Same Day Approval",
-    desc: "Submit documents in the morning, get approval by evening. We respect your time.",
-    color: "bg-blue-50 text-blue-600",
-  },
-  {
-    icon: <Lightbulb className="w-5 h-5" />,
-    title: "Tailored Solutions",
-    desc: "Every loan is customized to your specific financial needs and repayment capacity.",
-    color: "bg-amber-50 text-amber-600",
-  },
-  {
-    icon: <Users className="w-5 h-5" />,
-    title: "Dedicated Manager",
-    desc: "A personal relationship manager guides you from application to final disbursement.",
-    color: "bg-purple-50 text-purple-600",
-  },
-];
+export function TrustedSection({ locale = "en" }: { locale?: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
 
-const highlights = ["Quick Loan Disbursal", "Minimal Documentation", "Zero Hidden Charges", "Expert Guidance"];
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
 
-export function TrustedSection({ props, locale }: { props?: any; locale?: string }) {
+  const features = [
+    {
+      icon: <Clock className="w-5 h-5" />,
+      title: t.home.trusted.features[0].title,
+      desc: t.home.trusted.features[0].desc,
+      color: "bg-blue-50 text-blue-600",
+    },
+    {
+      icon: <Lightbulb className="w-5 h-5" />,
+      title: t.home.trusted.features[1].title,
+      desc: t.home.trusted.features[1].desc,
+      color: "bg-amber-50 text-amber-600",
+    },
+    {
+      icon: <Users className="w-5 h-5" />,
+      title: t.home.trusted.features[2].title,
+      desc: t.home.trusted.features[2].desc,
+      color: "bg-purple-50 text-purple-600",
+    },
+  ];
+
+  const highlights = [
+    t.home.trusted.quickDisbursal,
+    t.home.trusted.minDoc,
+    t.home.trusted.zeroHidden,
+    t.home.trusted.expertGuide
+  ];
+
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,12 +61,12 @@ export function TrustedSection({ props, locale }: { props?: any; locale?: string
             transition={{ duration: 0.6 }}
           >
             <span className="inline-block bg-orange-100 text-orange-700 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-5">
-              Why United Finance
+              {t.home.trusted.badge}
             </span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 leading-tight">
-              A Decade of
+              {t.home.trusted.title1}
               <br />
-              <span className="text-[#EF7E22]">Financial Trust</span>
+              <span className="text-[#EF7E22]">{t.home.trusted.title2}</span>
             </h2>
           </motion.div>
 
@@ -57,7 +77,7 @@ export function TrustedSection({ props, locale }: { props?: any; locale?: string
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <p className="text-gray-600 leading-relaxed mb-6 text-[15px]">
-              For over a decade, we have been successful financial partners to people from all walks of life. Our commitment is reflected in thousands of successfully funded dreams across Uttar Pradesh.
+              {t.home.trusted.desc}
             </p>
             <div className="grid grid-cols-2 gap-3">
               {highlights.map((h, i) => (
@@ -67,7 +87,7 @@ export function TrustedSection({ props, locale }: { props?: any; locale?: string
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07 + 0.2 }}
-                  className="flex items-center gap-2 text-sm text-gray-700 font-medium"
+                  className="flex items-center gap-2 text-sm text-gray-700 font-medium cursor-default"
                 >
                   <CheckCircle2 className="w-4 h-4 text-[#EF7E22] shrink-0" />
                   {h}
@@ -87,7 +107,7 @@ export function TrustedSection({ props, locale }: { props?: any; locale?: string
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
               whileHover={{ y: -6 }}
-              className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-100 transition-all duration-300 group"
+              className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:border-orange-100 transition-all duration-300 group cursor-default"
             >
               <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-6`}>
                 {feature.icon}
@@ -106,16 +126,20 @@ export function TrustedSection({ props, locale }: { props?: any; locale?: string
           className="mt-16 bg-gradient-to-r from-[#1a0a2e] to-[#2a1040] rounded-3xl px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div>
-            <h3 className="text-2xl font-serif font-bold text-white mb-1">Ready to get started?</h3>
-            <p className="text-white/50 text-sm">Check your loan eligibility in under 2 minutes.</p>
+            <h3 className="text-2xl font-serif font-bold text-white mb-1">
+              {isHi ? "क्या आप तैयार हैं?" : "Ready to get started?"}
+            </h3>
+            <p className="text-white/50 text-sm">
+              {isHi ? "2 मिनट से कम समय में अपनी ऋण पात्रता जांचें।" : "Check your loan eligibility in under 2 minutes."}
+            </p>
           </div>
-          <Link href="/services">
+          <Link href={getLocalizedHref("/contact")}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-orange-900/30 text-sm tracking-wide transition-colors shrink-0"
+              className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-orange-900/30 text-sm tracking-wide transition-colors shrink-0 cursor-pointer"
             >
-              Apply Now <ArrowRight size={15} />
+              {t.common.applyNow} <ArrowRight size={15} />
             </motion.button>
           </Link>
         </motion.div>

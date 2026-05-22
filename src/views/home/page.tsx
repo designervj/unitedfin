@@ -11,11 +11,11 @@ export default function Home({ locale }: { locale: string }) {
     <main>
       <HeroSection locale={locale} />
       <TrustedSection locale={locale} />
-      <ProductsSection />
-      <ChairmanMessageSection />
-      <SuccessStoriesSection />
-      <FAQSection />
-      <ContactFormSection />
+      <ProductsSection locale={locale} />
+      <ChairmanMessageSection locale={locale} />
+      <SuccessStoriesSection locale={locale} />
+      <FAQSection locale={locale} />
+      <ContactFormSection locale={locale} />
     </main>
   );
 }

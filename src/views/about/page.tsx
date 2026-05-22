@@ -1,32 +1,47 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Building2, Target, Eye, ShieldCheck, CheckCircle2, TrendingUp, Award, Users, ArrowRight, ChevronRight } from "lucide-react";
+import { Target, Eye, ShieldCheck, TrendingUp, Award, Users, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
-
-const stats = [
-  { value: "₹500Cr+", label: "Loans Disbursed" },
-  { value: "10,000+", label: "Happy Customers" },
-  { value: "10+", label: "Years of Trust" },
-  { value: "24hr", label: "Loan Approval" },
-];
-
-const milestones = [
-  { year: "2014", title: "Foundation", desc: "United Finance & Leasing Pvt. Ltd. was incorporated as an RBI-registered NBFC in New Delhi." },
-  { year: "2016", title: "First Branch", desc: "Expanded operations into Uttar Pradesh, opening our first branch in Lucknow." },
-  { year: "2019", title: "₹100 Cr Milestone", desc: "Crossed ₹100 Crore in total loan disbursements, serving thousands of families." },
-  { year: "2022", title: "Digital Transformation", desc: "Launched digital onboarding and loan processing for faster customer experience." },
-  { year: "2024", title: "₹500 Cr & Beyond", desc: "Crossed ₹500 Crore in cumulative disbursements with 10,000+ satisfied customers." },
-];
-
-const values = [
-  { icon: <ShieldCheck size={20} />, title: "Integrity", desc: "We operate with complete transparency — no hidden fees, no surprises." },
-  { icon: <Users size={20} />, title: "Customer First", desc: "Every decision we make starts and ends with what's best for our customers." },
-  { icon: <TrendingUp size={20} />, title: "Growth", desc: "We believe in growing together — when you succeed, we succeed." },
-  { icon: <Award size={20} />, title: "Excellence", desc: "We pursue the highest standards in service delivery and compliance." },
-];
+import { getTranslation } from "../../lib/translations";
 
 export default function AboutCompany({ locale }: { locale: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
+
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
+
+  const stats = [
+    { value: t.home.stats.disbursed, label: t.home.stats.disbursedLbl },
+    { value: t.home.stats.customers, label: t.home.stats.customersLbl },
+    { value: t.home.stats.trusted, label: t.home.stats.trustedLbl },
+    { value: t.home.stats.speed, label: t.home.stats.speedLbl },
+  ];
+
+  const milestones = [
+    { year: "2014", title: t.aboutPage.milestones[0].title, desc: t.aboutPage.milestones[0].desc },
+    { year: "2016", title: t.aboutPage.milestones[1].title, desc: t.aboutPage.milestones[1].desc },
+    { year: "2019", title: t.aboutPage.milestones[2].title, desc: t.aboutPage.milestones[2].desc },
+    { year: "2022", title: t.aboutPage.milestones[3].title, desc: t.aboutPage.milestones[3].desc },
+    { year: "2024", title: t.aboutPage.milestones[4].title, desc: t.aboutPage.milestones[4].desc },
+  ];
+
+  const values = [
+    { icon: <ShieldCheck size={20} />, title: t.aboutPage.valueList[0].title, desc: t.aboutPage.valueList[0].desc },
+    { icon: <Users size={20} />, title: t.aboutPage.valueList[1].title, desc: t.aboutPage.valueList[1].desc },
+    { icon: <TrendingUp size={20} />, title: t.aboutPage.valueList[2].title, desc: t.aboutPage.valueList[2].desc },
+    { icon: <Award size={20} />, title: t.aboutPage.valueList[3].title, desc: t.aboutPage.valueList[3].desc },
+  ];
+
   return (
     <main className="min-h-screen bg-white">
 
@@ -57,16 +72,18 @@ export default function AboutCompany({ locale }: { locale: string }) {
             {/* Breadcrumb */}
             <motion.nav initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
               className="flex items-center gap-1.5 text-xs text-white/40 font-medium mb-8">
-              <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
+              <Link href={getLocalizedHref("/")} className="hover:text-white/70 transition-colors">{t.common.home}</Link>
               <ChevronRight size={11} className="text-white/20" />
-              <span className="text-[#EF7E22] font-semibold">About Our Company</span>
+              <span className="text-[#EF7E22] font-semibold">{t.common.aboutCompany}</span>
             </motion.nav>
 
             {/* Category tag */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
               className="flex items-center gap-3 mb-7">
               <div className="w-8 h-[2px] bg-[#EF7E22]" />
-              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">RBI Registered NBFC · Operational in Uttar Pradesh</span>
+              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">
+                {t.home.hero.badge}
+              </span>
             </motion.div>
 
             {/* Heading */}
@@ -77,38 +94,38 @@ export default function AboutCompany({ locale }: { locale: string }) {
               className="font-serif font-bold text-white leading-[1.0] mb-7"
               style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}
             >
-              A Decade of<br />
+              {t.aboutPage.title1}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF7E22] to-[#f9a94b]">
-                Financial Trust.
+                {t.aboutPage.title2}
               </span>
             </motion.h1>
 
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
               className="text-slate-300/80 text-[17px] leading-relaxed max-w-2xl mb-10">
-              Whether you're looking to refurbish your property, buy an asset, or need cash for working capital — we want to help you and your business succeed. Serving Varanasi, Azamgarh, Lalganj & Phoolpur.
+              {t.aboutPage.desc}
             </motion.p>
 
             {/* CTA row */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
               className="flex flex-wrap items-center gap-5">
-              <Link href="/contact">
+              <Link href={getLocalizedHref("/contact")}>
                 <motion.button whileHover={{ scale: 1.04, x: 4 }} whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors">
-                  Apply for Loan <ArrowRight size={15} />
+                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors cursor-pointer">
+                  {t.common.applyNow} <ArrowRight size={15} />
                 </motion.button>
               </Link>
 
               <div className="w-px h-8 bg-white/15" />
 
-              <Link href="/about/directors">
-                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all">
-                  Meet Our Directors →
+              <Link href={getLocalizedHref("/about/directors")}>
+                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all cursor-pointer">
+                  {t.common.directors} →
                 </button>
               </Link>
 
-              <Link href="/about/csr">
-                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all">
-                  CSR & Policies →
+              <Link href={getLocalizedHref("/about/csr")}>
+                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all cursor-pointer">
+                  {t.common.csr} →
                 </button>
               </Link>
             </motion.div>
@@ -146,18 +163,20 @@ export default function AboutCompany({ locale }: { locale: string }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-5">Our Story</span>
-              <h2 className="font-serif text-4xl font-bold text-gray-900 mb-6">Built on a Simple Promise</h2>
+              <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-5">
+                {t.aboutPage.ourStory}
+              </span>
+              <h2 className="font-serif text-4xl font-bold text-gray-900 mb-6">{t.aboutPage.storyTitle}</h2>
               <p className="text-gray-600 leading-relaxed mb-5 text-[15px]">
-                United Finance & Leasing Private Limited was founded in 2014 with a clear purpose — to make credit accessible to those who need it most. We began in New Delhi and quickly expanded operations into Uttar Pradesh, where we identified a significant underserved lending market.
+                {t.aboutPage.storyDesc1}
               </p>
               <p className="text-gray-600 leading-relaxed mb-8 text-[15px]">
-                Today, we serve thousands of individuals, micro-entrepreneurs, and small businesses with a wide range of loan products — from micro loans as small as ₹5,000 to mortgage loans exceeding ₹50 lakhs. Every product is designed with the customer's genuine need in mind.
+                {t.aboutPage.storyDesc2}
               </p>
               <div className="grid grid-cols-1 gap-4">
                 {[
-                  { icon: <Target size={18} />, title: "Our Mission", desc: "To empower individuals and MSMEs with quick, affordable financial solutions, driving holistic economic development." },
-                  { icon: <Eye size={18} />, title: "Our Vision", desc: "To become the most trusted and preferred financial partner for underserved segments across India." },
+                  { icon: <Target size={18} />, title: t.aboutPage.mission, desc: t.aboutPage.missionDesc },
+                  { icon: <Eye size={18} />, title: t.aboutPage.vision, desc: t.aboutPage.visionDesc },
                 ].map((item) => (
                   <div key={item.title} className="flex gap-4 p-5 bg-gray-50 rounded-2xl border border-gray-100">
                     <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 shrink-0">{item.icon}</div>
@@ -183,8 +202,10 @@ export default function AboutCompany({ locale }: { locale: string }) {
       <section className="py-24 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">Our Journey</span>
-            <h2 className="font-serif text-4xl font-bold text-gray-900">Milestones That Define Us</h2>
+            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              {t.aboutPage.journey}
+            </span>
+            <h2 className="font-serif text-4xl font-bold text-gray-900">{t.aboutPage.journeyTitle}</h2>
           </div>
           <div className="relative">
             <div className="absolute left-[28px] top-0 bottom-0 w-px bg-gradient-to-b from-orange-400 via-orange-200 to-transparent" />
@@ -215,8 +236,10 @@ export default function AboutCompany({ locale }: { locale: string }) {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">What We Stand For</span>
-            <h2 className="font-serif text-4xl font-bold text-gray-900">Our Core Values</h2>
+            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              {t.aboutPage.valuesSub}
+            </span>
+            <h2 className="font-serif text-4xl font-bold text-gray-900">{t.aboutPage.values}</h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {values.map((v, i) => (
@@ -242,11 +265,11 @@ export default function AboutCompany({ locale }: { locale: string }) {
       {/* ── CTA ─────────────────────────── */}
       <section className="py-20 bg-[#EF7E22]">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-serif text-4xl font-bold text-white mb-4">Ready to Partner With Us?</h2>
-          <p className="text-orange-100 mb-8 leading-relaxed">Join thousands of satisfied customers who trust United Finance for their financial needs.</p>
-          <Link href="/services">
-            <button className="bg-white text-[#EF7E22] font-bold px-10 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all text-sm inline-flex items-center gap-2">
-              Explore Our Loans <ArrowRight size={15} />
+          <h2 className="font-serif text-4xl font-bold text-white mb-4">{t.aboutPage.partnerTitle}</h2>
+          <p className="text-orange-100 mb-8 leading-relaxed">{t.aboutPage.partnerSub}</p>
+          <Link href={getLocalizedHref("/services")}>
+            <button className="bg-white text-[#EF7E22] font-bold px-10 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all text-sm inline-flex items-center gap-2 cursor-pointer">
+              {t.aboutPage.exploreBtn} <ArrowRight size={15} />
             </button>
           </Link>
         </div>

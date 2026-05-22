@@ -4,23 +4,16 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import {
   ArrowRight, Calculator, ShieldCheck, Zap, Award,
-  Users, ChevronRight, BadgeCheck, TrendingUp,
+  Users, BadgeCheck, TrendingUp,
   Building2, Landmark, Car, Home, User, Coins
 } from "lucide-react";
 import Link from "next/link";
+import { getTranslation } from "../../../lib/translations";
 
-const loans = [
-  { label: "Business Loan", rate: "14%", icon: <Building2 size={14}/>, href: "/services/business-loan", color: "from-blue-500/20 to-blue-600/10" },
-  { label: "MSME Loan", rate: "16%", icon: <Landmark size={14}/>, href: "/services/msme-loan", color: "from-purple-500/20 to-purple-600/10" },
-  { label: "Gold Loan", rate: "12%", icon: <Coins size={14}/>, href: "/services/gold-loan", color: "from-yellow-500/20 to-yellow-600/10" },
-  { label: "Two Wheeler", rate: "15%", icon: <Car size={14}/>, href: "/services/two-wheeler-loan", color: "from-green-500/20 to-green-600/10" },
-  { label: "Mortgage", rate: "13%", icon: <Home size={14}/>, href: "/services/mortgage-loan", color: "from-red-500/20 to-red-600/10" },
-  { label: "Personal Loan", rate: "16%", icon: <User size={14}/>, href: "/services/personal-loan", color: "from-orange-500/20 to-orange-600/10" },
-];
+export function HeroSection({ locale = "en" }: { locale?: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
 
-
-
-export function HeroSection({ props, locale }: { props?: any; locale?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
@@ -30,6 +23,26 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
   const [activeLoan, setActiveLoan] = useState(0);
 
   const formatAmount = (n: number) => "₹ " + (n >= 100000 ? (n / 100000).toFixed(1) + " L" : n.toLocaleString("en-IN"));
+
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
+
+  const loans = [
+    { label: t.home.products.business.title, rate: "14%", icon: <Building2 size={14}/>, href: "/services/business-loan", color: "from-blue-500/20 to-blue-600/10" },
+    { label: t.home.products.msme.title, rate: "16%", icon: <Landmark size={14}/>, href: "/services/msme-loan", color: "from-purple-500/20 to-purple-600/10" },
+    { label: t.home.products.gold.title, rate: "12%", icon: <Coins size={14}/>, href: "/services/gold-loan", color: "from-yellow-500/20 to-yellow-600/10" },
+    { label: t.home.products.twoWheeler.title, rate: "15%", icon: <Car size={14}/>, href: "/services/two-wheeler-loan", color: "from-green-500/20 to-green-600/10" },
+    { label: t.home.products.mortgage.title, rate: "13%", icon: <Home size={14}/>, href: "/services/mortgage-loan", color: "from-red-500/20 to-red-600/10" },
+    { label: t.home.products.personal.title, rate: "16%", icon: <User size={14}/>, href: "/services/personal-loan", color: "from-orange-500/20 to-orange-600/10" },
+  ];
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden flex flex-col bg-[#060610]">
@@ -71,7 +84,7 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                   <span className="animate-ping absolute inset-0 rounded-full bg-green-400 opacity-70" />
                   <span className="relative rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                <span className="text-white/65 text-xs font-semibold tracking-wide">RBI Registered NBFC · Uttar Pradesh</span>
+                <span className="text-white/65 text-xs font-semibold tracking-wide">{t.home.hero.badge}</span>
               </motion.div>
 
               {/* Headline */}
@@ -83,28 +96,28 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                   className="font-serif font-bold text-white leading-[1.02]"
                   style={{ fontSize: "clamp(2.8rem, 5.5vw, 5rem)" }}
                 >
-                  Flexible Loans for your<br />
+                  {t.home.hero.title1}<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF7E22] to-[#f9a94b]">
-                    Business &amp; Daily Needs.
+                    {t.home.hero.title2}
                   </span>
                 </h1>
               </motion.div>
 
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.28 }}
                 className="text-slate-400 text-[17px] leading-relaxed max-w-lg mb-8">
-                Whether you're looking to refurbish your property, buy an asset or you just need cash for working capital, we want to help you and your business succeed.
+                {t.home.hero.desc}
               </motion.p>
 
-              {/* Feature chips — from unitedfin.in */}
+              {/* Feature chips */}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.38 }}
                 className="flex flex-wrap gap-2 mb-10">
                 {[
-                  { label: "Quick Loan", icon: "⚡" },
-                  { label: "Online Application", icon: "🖥️" },
-                  { label: "Hassle-Free", icon: "✅" },
-                  { label: "MSME Friendly", icon: "🏭" },
-                  { label: "Minimal Docs", icon: "📄" },
-                  { label: "24hr Disbursal", icon: "🕐" },
+                  { label: isHi ? "त्वरित ऋण" : "Quick Loan", icon: "⚡" },
+                  { label: isHi ? "ऑनलाइन आवेदन" : "Online Application", icon: "🖥️" },
+                  { label: isHi ? "परेशानी मुक्त" : "Hassle-Free", icon: "✅" },
+                  { label: isHi ? "एमएसएमई अनुकूल" : "MSME Friendly", icon: "🏭" },
+                  { label: isHi ? "न्यूनतम दस्तावेज़" : "Minimal Docs", icon: "📄" },
+                  { label: isHi ? "24 घंटे में वितरण" : "24hr Disbursal", icon: "🕐" },
                 ].map((chip, i) => (
                   <motion.span key={chip.label}
                     initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
@@ -120,25 +133,25 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
               {/* CTA Buttons */}
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
                 className="flex flex-wrap items-center gap-4 mb-12">
-                <Link href="/contact">
+                <Link href={getLocalizedHref("/contact")}>
                   <motion.button
                     whileHover={{ scale: 1.04, boxShadow: "0 20px 48px rgba(239,126,34,0.45)" }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2.5 bg-[#EF7E22] hover:bg-[#d96e1a] text-white font-bold px-8 py-4 rounded-2xl text-sm shadow-xl shadow-orange-900/30 transition-colors">
-                    Apply for Loan <ArrowRight size={16} />
+                    className="flex items-center gap-2.5 bg-[#EF7E22] hover:bg-[#d96e1a] text-white font-bold px-8 py-4 rounded-2xl text-sm shadow-xl shadow-orange-900/30 transition-colors cursor-pointer">
+                    {t.common.applyNow} <ArrowRight size={16} />
                   </motion.button>
                 </Link>
-                <Link href="/emi-calculator">
+                <Link href={getLocalizedHref("/emi-calculator")}>
                   <motion.button
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2.5 border border-white/12 hover:border-white/30 bg-white/5 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-2xl text-sm transition-all backdrop-blur-sm">
-                    <Calculator size={15} /> EMI Calculator
+                    className="flex items-center gap-2.5 border border-white/12 hover:border-white/30 bg-white/5 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-2xl text-sm transition-all backdrop-blur-sm cursor-pointer">
+                    <Calculator size={15} /> {t.common.emiCalculator}
                   </motion.button>
                 </Link>
                 <div className="w-px h-8 bg-white/10" />
-                <Link href="/emi-payment-qr-code">
-                  <button className="text-white/40 hover:text-white/70 text-sm font-medium underline underline-offset-4 decoration-white/15 hover:decoration-white/40 transition-all">
-                    Pay EMI →
+                <Link href={getLocalizedHref("/emi-payment-qr-code")}>
+                  <button className="text-white/40 hover:text-white/70 text-sm font-medium underline underline-offset-4 decoration-white/15 hover:decoration-white/40 transition-all cursor-pointer">
+                    {isHi ? "ईएमआई भुगतान →" : "Pay EMI →"}
                   </button>
                 </Link>
               </motion.div>
@@ -148,12 +161,12 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                 className="flex flex-wrap gap-x-7 gap-y-3 pt-7 border-t border-white/6">
                 {[
                   { icon: <ShieldCheck size={12} />, text: "RBI Registered" },
-                  { icon: <Zap size={12} />, text: "24hr Approval" },
+                  { icon: <Zap size={12} />, text: t.home.hero.approval24 },
                   { icon: <Award size={12} />, text: "Est. 2014" },
                   { icon: <Users size={12} />, text: "10,000+ Served" },
-                ].map((t, i) => (
+                ].map((tItem, i) => (
                   <div key={i} className="flex items-center gap-1.5 text-white/40 text-[12px] font-medium">
-                    <span className="text-[#EF7E22]">{t.icon}</span>{t.text}
+                    <span className="text-[#EF7E22]">{tItem.icon}</span>{tItem.text}
                   </div>
                 ))}
               </motion.div>
@@ -174,10 +187,10 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                   <BadgeCheck size={17} className="text-green-500" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-gray-900 text-sm font-bold">Loan Approved! 🎉</div>
-                  <div className="text-gray-400 text-xs truncate">Business Loan · ₹8,00,000 · Varanasi</div>
+                  <div className="text-gray-900 text-sm font-bold">{isHi ? "ऋण स्वीकृत! 🎉" : "Loan Approved! 🎉"}</div>
+                  <div className="text-gray-400 text-xs truncate">{isHi ? "बिजनेस लोन · ₹8,00,000 · वाराणसी" : "Business Loan · ₹8,00,000 · Varanasi"}</div>
                 </div>
-                <span className="text-green-500 text-[10px] font-bold bg-green-50 px-2 py-0.5 rounded-full shrink-0">Live</span>
+                <span className="text-green-500 text-[10px] font-bold bg-green-50 px-2 py-0.5 rounded-full shrink-0">{isHi ? "लाइव" : "Live"}</span>
               </motion.div>
 
               {/* ── Main Quick Apply Card ── */}
@@ -186,8 +199,8 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                 {/* Card Header */}
                 <div className="bg-gradient-to-r from-[#3B1040] to-[#5a1a65] px-6 py-5 flex items-center justify-between">
                   <div>
-                    <div className="text-white font-bold text-base">Quick Apply</div>
-                    <div className="text-white/60 text-xs mt-0.5">Get approval in 24 hours</div>
+                    <div className="text-white font-bold text-base">{isHi ? "त्वरित आवेदन" : "Quick Apply"}</div>
+                    <div className="text-white/60 text-xs mt-0.5">{isHi ? "24 घंटे में ऋण स्वीकृति" : "Get approval in 24 hours"}</div>
                   </div>
                   <div className="w-10 h-10 rounded-xl bg-[#EF7E22] flex items-center justify-center shadow-lg shadow-orange-900/40">
                     <TrendingUp size={18} className="text-white" />
@@ -199,18 +212,18 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
 
                   {/* Loan Type selector */}
                   <div>
-                    <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">Select Loan Type</div>
+                    <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2">{isHi ? "ऋण का प्रकार चुनें" : "Select Loan Type"}</div>
                     <div className="grid grid-cols-3 gap-1.5">
                       {loans.map((loan, i) => (
                         <button key={loan.label}
                           onClick={() => setActiveLoan(i)}
-                          className={`text-left px-2.5 py-2 rounded-xl text-[11px] font-semibold border transition-all ${
+                          className={`text-left px-2.5 py-2 rounded-xl text-[11px] font-semibold border transition-all cursor-pointer ${
                             activeLoan === i
                               ? "bg-[#EF7E22] border-[#EF7E22] text-white shadow-md shadow-orange-100"
                               : "bg-gray-50 border-gray-100 text-gray-600 hover:border-orange-200 hover:bg-orange-50"
                           }`}>
                           <div className="flex items-center gap-1 mb-0.5">{loan.icon} {loan.label.split(" ")[0]}</div>
-                          <div className={`text-[9px] font-bold ${activeLoan === i ? "text-white/75" : "text-gray-400"}`}>{loan.rate} p.a.</div>
+                          <div className={`text-[9px] font-bold ${activeLoan === i ? "text-white/75" : "text-gray-400"}`}>{loan.rate} {isHi ? "वार्षिक" : "p.a."}</div>
                         </button>
                       ))}
                     </div>
@@ -219,7 +232,7 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                   {/* Loan Amount Slider */}
                   <div>
                     <div className="flex justify-between items-baseline mb-2">
-                      <span className="text-gray-500 text-xs font-medium">Loan Amount</span>
+                      <span className="text-gray-500 text-xs font-medium">{isHi ? "ऋण की राशि" : "Loan Amount"}</span>
                       <span className="text-[#EF7E22] font-bold text-xl font-serif">{formatAmount(loanAmount)}</span>
                     </div>
                     <input type="range" min={10000} max={5000000} step={10000}
@@ -235,7 +248,7 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                   {/* EMI Preview */}
                   <div className="bg-orange-50 border border-orange-100 rounded-2xl px-4 py-3 flex items-center justify-between">
                     <div>
-                      <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-0.5">Est. Monthly EMI</div>
+                      <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-0.5">{isHi ? "अनुमानित मासिक ईएमआई" : "Est. Monthly EMI"}</div>
                       <div className="text-gray-900 font-bold text-xl font-serif">
                         ₹ {Math.round(
                           (loanAmount * (parseFloat(loans[activeLoan].rate) / 100 / 12) *
@@ -245,24 +258,24 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-0.5">Tenure</div>
-                      <div className="text-[#EF7E22] font-bold text-sm">3 Years</div>
+                      <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-0.5">{isHi ? "अवधि" : "Tenure"}</div>
+                      <div className="text-[#EF7E22] font-bold text-sm">{isHi ? "3 वर्ष" : "3 Years"}</div>
                     </div>
                   </div>
 
                   {/* Apply Button */}
-                  <Link href="/contact">
+                  <Link href={getLocalizedHref("/contact")}>
                     <motion.button
                       whileHover={{ scale: 1.02, boxShadow: "0 16px 40px rgba(239,126,34,0.35)" }}
                       whileTap={{ scale: 0.97 }}
-                      className="w-full flex items-center justify-center gap-2 bg-[#EF7E22] hover:bg-[#d96e1a] text-white font-bold py-3.5 rounded-2xl text-sm shadow-lg shadow-orange-200 transition-colors">
-                      Apply Now <ArrowRight size={15} />
+                      className="w-full flex items-center justify-center gap-2 bg-[#EF7E22] hover:bg-[#d96e1a] text-white font-bold py-3.5 rounded-2xl text-sm shadow-lg shadow-orange-200 transition-colors cursor-pointer">
+                      {t.common.applyNow} <ArrowRight size={15} />
                     </motion.button>
                   </Link>
 
-                  <Link href="/emi-calculator">
-                    <button className="w-full text-center text-gray-400 hover:text-[#EF7E22] text-xs font-medium transition-colors">
-                      Advanced EMI Calculator →
+                  <Link href={getLocalizedHref("/emi-calculator")}>
+                    <button className="w-full text-center text-gray-400 hover:text-[#EF7E22] text-xs font-medium transition-colors cursor-pointer">
+                      {isHi ? "विस्तृत ईएमआई कैलकुलेटर →" : "Advanced EMI Calculator →"}
                     </button>
                   </Link>
                 </div>
@@ -271,7 +284,7 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
                 <div className="border-t border-gray-100 px-6 py-3 bg-gray-50 flex items-center gap-2">
                   <ShieldCheck size={13} className="text-[#EF7E22] shrink-0" />
                   <div className="text-gray-500 text-[11px]">
-                    <span className="font-semibold text-gray-700">Branches:</span> Varanasi · Azamgarh · Lalganj · Phoolpur
+                    <span className="font-semibold text-gray-700">{isHi ? "शाखाएं:" : "Branches:"}</span> Varanasi · Azamgarh · Lalganj · Phoolpur
                   </div>
                 </div>
               </div>
@@ -288,10 +301,10 @@ export function HeroSection({ props, locale }: { props?: any; locale?: string })
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/6">
               {[
-                { value: "₹500 Cr+", label: "Loans Disbursed", sub: "Since 2014" },
-                { value: "10,000+", label: "Happy Customers", sub: "Across UP" },
-                { value: "10+ Yrs", label: "Trusted NBFC", sub: "RBI Registered" },
-                { value: "24 Hrs", label: "Loan Approval", sub: "Minimal paperwork" },
+                { value: t.home.stats.disbursed, label: t.home.stats.disbursedLbl, sub: isHi ? "वर्ष 2014 से" : "Since 2014" },
+                { value: t.home.stats.customers, label: t.home.stats.customersLbl, sub: isHi ? "उत्तर प्रदेश में" : "Across UP" },
+                { value: t.home.stats.trusted, label: t.home.stats.trustedLbl, sub: "RBI Registered" },
+                { value: t.home.stats.speed, label: t.home.stats.speedLbl, sub: isHi ? "न्यूनतम कागजी कार्रवाई" : "Minimal paperwork" },
               ].map((s, i) => (
                 <motion.div key={s.label}
                   initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}

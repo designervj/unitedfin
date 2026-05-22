@@ -1,52 +1,67 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, Mail, ChevronRight, Users, ShieldCheck, Award, Briefcase } from "lucide-react";
+import { ArrowRight, Mail, ChevronRight } from "lucide-react";
 import Link from "next/link";
-
-const board = [
-  {
-    name: "Sh. Rajiv Kumar Gupta",
-    role: "Chairman & Managing Director",
-    img: "https://i.pravatar.cc/400?img=51",
-    bio: "An accomplished financial executive with over 25 years of experience in NBFCs and banking. He has been the driving force behind United Finance's growth and regulatory compliance.",
-    linkedin: "#",
-    email: "chairman@unitedfin.in",
-  },
-  {
-    name: "Smt. Priya Gupta",
-    role: "Director — Operations",
-    img: "https://i.pravatar.cc/400?img=47",
-    bio: "With expertise in operations management and process optimization, she oversees branch operations, collections, and customer servicing across all locations.",
-    linkedin: "#",
-    email: "ops@unitedfin.in",
-  },
-  {
-    name: "Sh. Ankit Verma",
-    role: "Director — Finance & Accounts",
-    img: "https://i.pravatar.cc/400?img=52",
-    bio: "A Chartered Accountant with deep expertise in financial planning, risk management, and regulatory reporting. He ensures the company's financial health and compliance.",
-    linkedin: "#",
-    email: "finance@unitedfin.in",
-  },
-  {
-    name: "Sh. Deepak Misra",
-    role: "Independent Director",
-    img: "https://i.pravatar.cc/400?img=57",
-    bio: "A seasoned legal and governance professional who serves as an independent director, ensuring highest standards of corporate governance and ethical business practices.",
-    linkedin: "#",
-    email: "board@unitedfin.in",
-  },
-];
-
-const committees = [
-  { name: "Audit Committee", desc: "Oversees financial reporting, internal controls, and compliance." },
-  { name: "Risk Management Committee", desc: "Monitors credit risk, market risk, and operational risk." },
-  { name: "Nomination & Remuneration Committee", desc: "Reviews board composition and executive compensation." },
-  { name: "Customer Service Committee", desc: "Ensures customer-centric policies and grievance redressal." },
-];
+import { getTranslation } from "../../../lib/translations";
 
 export default function BoardOfDirectors({ locale }: { locale: string }) {
+  const t = getTranslation(locale);
+  const isHi = locale === "hi";
+
+  const getLocalizedHref = (href: string) => {
+    if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+      return href;
+    }
+    const cleanHref = href.startsWith("/") ? href : `/${href}`;
+    if (cleanHref === "/") {
+      return `/${locale}`;
+    }
+    return `/${locale}${cleanHref}`;
+  };
+
+  const board = [
+    {
+      name: isHi ? "श्री राजीव कुमार गुप्ता" : "Sh. Rajiv Kumar Gupta",
+      role: t.directorsPage.board[0].role,
+      img: "https://i.pravatar.cc/400?img=51",
+      bio: t.directorsPage.board[0].bio,
+      linkedin: "#",
+      email: "chairman@unitedfin.in",
+    },
+    {
+      name: isHi ? "श्रीमती प्रिया गुप्ता" : "Smt. Priya Gupta",
+      role: t.directorsPage.board[1].role,
+      img: "https://i.pravatar.cc/400?img=47",
+      bio: t.directorsPage.board[1].bio,
+      linkedin: "#",
+      email: "ops@unitedfin.in",
+    },
+    {
+      name: isHi ? "श्री अंकित वर्मा" : "Sh. Ankit Verma",
+      role: t.directorsPage.board[2].role,
+      img: "https://i.pravatar.cc/400?img=52",
+      bio: t.directorsPage.board[2].bio,
+      linkedin: "#",
+      email: "finance@unitedfin.in",
+    },
+    {
+      name: isHi ? "श्री दीपक मिश्रा" : "Sh. Deepak Misra",
+      role: t.directorsPage.board[3].role,
+      img: "https://i.pravatar.cc/400?img=57",
+      bio: t.directorsPage.board[3].bio,
+      linkedin: "#",
+      email: "board@unitedfin.in",
+    },
+  ];
+
+  const committees = [
+    { name: t.directorsPage.committees[0].name, desc: t.directorsPage.committees[0].desc },
+    { name: t.directorsPage.committees[1].name, desc: t.directorsPage.committees[1].desc },
+    { name: t.directorsPage.committees[2].name, desc: t.directorsPage.committees[2].desc },
+    { name: t.directorsPage.committees[3].name, desc: t.directorsPage.committees[3].desc },
+  ];
+
   return (
     <main className="min-h-screen bg-white">
 
@@ -80,18 +95,20 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
             {/* Breadcrumb */}
             <motion.nav initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
               className="flex items-center gap-1.5 text-xs text-white/40 font-medium mb-8">
-              <Link href="/" className="hover:text-white/70 transition-colors">Home</Link>
+              <Link href={getLocalizedHref("/")} className="hover:text-white/70 transition-colors">{t.common.home}</Link>
               <ChevronRight size={11} className="text-white/20" />
-              <Link href="/about" className="hover:text-white/70 transition-colors">About Us</Link>
+              <Link href={getLocalizedHref("/about")} className="hover:text-white/70 transition-colors">{t.common.aboutCompany}</Link>
               <ChevronRight size={11} className="text-white/20" />
-              <span className="text-[#EF7E22] font-semibold">Board of Directors</span>
+              <span className="text-[#EF7E22] font-semibold">{t.common.directors}</span>
             </motion.nav>
 
             {/* Category tag */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
               className="flex items-center gap-3 mb-7">
               <div className="w-8 h-[2px] bg-[#EF7E22]" />
-              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">Leadership & Governance</span>
+              <span className="text-[#EF7E22] text-[11px] font-bold tracking-[0.3em] uppercase">
+                {t.directorsPage.badge}
+              </span>
             </motion.div>
 
             {/* Heading */}
@@ -102,15 +119,15 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
               className="font-serif font-bold text-white leading-[1.0] mb-7"
               style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}
             >
-              Trusted<br />
+              {t.directorsPage.title1}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF7E22] to-[#f9a94b]">
-                Leadership.
+                {t.directorsPage.title2}
               </span>
             </motion.h1>
 
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
               className="text-slate-300/80 text-[17px] leading-relaxed max-w-xl mb-10">
-              Seasoned professionals with decades of expertise in finance, law, and operations — steering United Finance toward sustainable, ethical growth.
+              {t.directorsPage.desc}
             </motion.p>
 
             {/* Director avatars + CTA row */}
@@ -128,23 +145,23 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
                   ))}
                 </div>
                 <div>
-                  <div className="text-white font-bold text-sm">{board.length} Directors</div>
-                  <div className="text-white/45 text-xs">on the board</div>
+                  <div className="text-white font-bold text-sm">{board.length} {isHi ? "निदेशक" : "Directors"}</div>
+                  <div className="text-white/45 text-xs">{isHi ? "मंडल में सक्रिय" : "on the board"}</div>
                 </div>
               </div>
 
               <div className="w-px h-8 bg-white/15" />
 
-              <Link href="/contact">
+              <Link href={getLocalizedHref("/contact")}>
                 <motion.button whileHover={{ scale: 1.04, x: 4 }} whileTap={{ scale: 0.97 }}
-                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors">
-                  Contact Leadership <ArrowRight size={15} />
+                  className="flex items-center gap-2 bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-7 py-3.5 rounded-2xl text-sm shadow-xl shadow-orange-900/40 transition-colors cursor-pointer">
+                  {t.directorsPage.contactBtn} <ArrowRight size={15} />
                 </motion.button>
               </Link>
 
-              <Link href="/about">
-                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all">
-                  Our Company →
+              <Link href={getLocalizedHref("/about")}>
+                <button className="text-white/60 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60 transition-all cursor-pointer">
+                  {t.common.aboutCompany} →
                 </button>
               </Link>
             </motion.div>
@@ -162,10 +179,10 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/8">
               {[
-                { value: "4", label: "Board Directors", sub: "Active members" },
-                { value: "60+", label: "Combined Exp.", sub: "Years in finance" },
-                { value: "4", label: "Committees", sub: "Governance bodies" },
-                { value: "2014", label: "Established", sub: "RBI registered NBFC" },
+                { value: "4", label: isHi ? "मंडल निदेशक" : "Board Directors", sub: isHi ? "सक्रिय सदस्य" : "Active members" },
+                { value: "60+", label: isHi ? "संयुक्त अनुभव" : "Combined Exp.", sub: isHi ? "वित्तीय क्षेत्र में वर्ष" : "Years in finance" },
+                { value: "4", label: isHi ? "समितियां" : "Committees", sub: isHi ? "निगरानी निकाय" : "Governance bodies" },
+                { value: "2014", label: isHi ? "स्थापना वर्ष" : "Established", sub: isHi ? "आरबीआई पंजीकृत एनबीएफसी" : "RBI registered NBFC" },
               ].map((s, i) => (
                 <motion.div key={s.label}
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -228,10 +245,15 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
       <section className="py-24 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">Governance</span>
-            <h2 className="font-serif text-4xl font-bold text-gray-900">Board Committees</h2>
+            <span className="inline-block bg-orange-50 text-orange-600 text-xs font-bold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              {isHi ? "कॉर्पोरेट प्रशासन" : "Governance"}
+            </span>
+            <h2 className="font-serif text-4xl font-bold text-gray-900">{isHi ? "मंडल की समितियां" : "Board Committees"}</h2>
             <p className="text-gray-500 mt-3 max-w-xl mx-auto text-[15px]">
-              Specialized committees ensure focused oversight of all critical business functions.
+              {isHi 
+                ? "विशेषज्ञ समितियां सभी महत्वपूर्ण व्यावसायिक कार्यों की केंद्रित निगरानी सुनिश्चित करती हैं।" 
+                : "Specialized committees ensure focused oversight of all critical business functions."
+              }
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -260,11 +282,18 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
       {/* ── CTA ─────────────────────────── */}
       <section className="py-20 bg-gradient-to-br from-[#0f172a] to-[#1a0a2e]">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-serif text-4xl font-bold text-white mb-4">Meet Our Team</h2>
-          <p className="text-slate-400 mb-8">Interested in joining our leadership team or learning more about us?</p>
-          <Link href="/contact">
-            <button className="bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-10 py-4 rounded-2xl shadow-xl transition-colors text-sm inline-flex items-center gap-2">
-              Contact Us <ArrowRight size={15} />
+          <h2 className="font-serif text-4xl font-bold text-white mb-4">
+            {isHi ? "हमारे नेतृत्व से संपर्क करें" : "Contact Our Leadership"}
+          </h2>
+          <p className="text-slate-400 mb-8">
+            {isHi 
+              ? "हमारे नेतृत्व दल के साथ सहयोग करने या कॉर्पोरेट नीतियों के बारे में अधिक जानने में रुचि रखते हैं?" 
+              : "Interested in joining our leadership team or learning more about us?"
+            }
+          </p>
+          <Link href={getLocalizedHref("/contact")}>
+            <button className="bg-[#EF7E22] hover:bg-[#d66a10] text-white font-bold px-10 py-4 rounded-2xl shadow-xl transition-colors text-sm inline-flex items-center gap-2 cursor-pointer">
+              {t.common.contactUs} <ArrowRight size={15} />
             </button>
           </Link>
         </div>
