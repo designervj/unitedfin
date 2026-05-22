@@ -107,14 +107,40 @@ export function Navbar() {
   return (
     <div className="w-full fixed top-0 left-0 right-0 z-50">
       {/* Top bar */}
-      <div className="bg-[#b31b1b] text-white text-[11px] py-1.5 px-6 flex items-center justify-between gap-4">
-        <span className="flex items-center gap-2 shrink-0">
-          <Phone size={11} className="opacity-70" />
-          <span className="opacity-90">{t.common.phone} &nbsp;|&nbsp; {t.common.email}</span>
-        </span>
+      <div className="bg-[#b31b1b] text-white text-[11px] py-2 md:py-1.5 px-4 md:px-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2 md:gap-4">
+        <div className="flex items-center justify-between gap-4 md:contents">
+          <span className="flex items-center gap-2 shrink-0">
+            <Phone size={11} className="opacity-70" />
+            <span className="opacity-90">{t.common.phone} &nbsp;|&nbsp; {t.common.email}</span>
+          </span>
+          
+          {/* Premium Language Switcher Capsule on Mobile */}
+          <div className="flex md:hidden items-center bg-black/25 backdrop-blur-sm rounded-full p-0.5 border border-white/10 shrink-0 select-none">
+            <button 
+              onClick={() => switchLanguage("en")} 
+              className={`px-2.5 py-0.5 rounded-full font-bold tracking-wider transition-all text-[8px] cursor-pointer ${
+                currentLocale === "en" 
+                  ? "bg-[#EF7E22] text-white shadow-md shadow-orange-950/20" 
+                  : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              EN
+            </button>
+            <button 
+              onClick={() => switchLanguage("hi")} 
+              className={`px-2.5 py-0.5 rounded-full font-bold tracking-wider transition-all text-[8px] cursor-pointer ${
+                currentLocale === "hi" 
+                  ? "bg-[#EF7E22] text-white shadow-md shadow-orange-950/20" 
+                  : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              हिन्दी
+            </button>
+          </div>
+        </div>
         
         {/* Premium Seamless Marquee Bar */}
-        <div className="flex-1 marquee-container relative hidden md:flex items-center overflow-hidden h-4 select-none">
+        <div className="flex-1 marquee-container relative flex items-center overflow-hidden h-4 select-none">
           <div className="marquee-content font-semibold tracking-wide">
             <span className="flex-shrink-0 pr-24 flex items-center gap-1.5 text-white/90">
               <span className="text-[#FAE9A8] font-bold">⚠️</span> {t.common.operationalMarquee}
@@ -125,8 +151,8 @@ export function Navbar() {
           </div>
         </div>
         
-        {/* Premium Language Switcher Capsule */}
-        <div className="flex items-center bg-black/25 backdrop-blur-sm rounded-full p-0.5 border border-white/10 shrink-0 select-none">
+        {/* Premium Language Switcher Capsule on Desktop */}
+        <div className="hidden md:flex items-center bg-black/25 backdrop-blur-sm rounded-full p-0.5 border border-white/10 shrink-0 select-none">
           <button 
             onClick={() => switchLanguage("en")} 
             className={`px-3 py-0.5 rounded-full font-bold tracking-wider transition-all text-[9px] cursor-pointer ${

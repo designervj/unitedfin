@@ -72,19 +72,19 @@ export function HeroSection({ locale = "en" }: { locale?: string }) {
       {/* ══════ CONTENT ══════ */}
       <motion.div style={{ opacity: fadeOut }} className="relative z-10 flex-1 flex flex-col">
         <div className="max-w-7xl mx-auto w-full px-6 lg:px-12 flex-1 flex flex-col">
-          <div className="grid lg:grid-cols-[1fr_380px] gap-12 xl:gap-20 items-center flex-1 pt-28 lg:pt-32 pb-8">
+          <div className="grid lg:grid-cols-[1fr_380px] gap-12 xl:gap-20 items-center flex-1 pt-44 md:pt-36 lg:pt-32 pb-8">
 
             {/* ══ LEFT — Hero Copy ══ */}
             <div className="flex flex-col">
 
               {/* Pill badge */}
               <motion.div initial={{ opacity: 0, y: -14 }} animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2.5 self-start bg-white/6 border border-white/10 backdrop-blur-md rounded-full px-4 py-2 mb-8">
+                className="flex items-center gap-2.5 self-start bg-white/10 border border-white/20 backdrop-blur-md rounded-full px-4 py-2 mb-8">
                 <span className="flex h-2 w-2 relative">
                   <span className="animate-ping absolute inset-0 rounded-full bg-green-400 opacity-70" />
                   <span className="relative rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                <span className="text-white/65 text-xs font-semibold tracking-wide">{t.home.hero.badge}</span>
+                <span className="text-white/80 text-xs font-semibold tracking-wide">{t.home.hero.badge}</span>
               </motion.div>
 
               {/* Headline */}
@@ -144,7 +144,7 @@ export function HeroSection({ locale = "en" }: { locale?: string }) {
                 <Link href={getLocalizedHref("/emi-calculator")}>
                   <motion.button
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-2.5 border border-white/12 hover:border-white/30 bg-white/5 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-2xl text-sm transition-all backdrop-blur-sm cursor-pointer">
+                    className="flex items-center gap-2.5 border border-white/20 hover:border-white/30 bg-white/5 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-2xl text-sm transition-all backdrop-blur-sm cursor-pointer">
                     <Calculator size={15} /> {t.common.emiCalculator}
                   </motion.button>
                 </Link>
@@ -158,7 +158,7 @@ export function HeroSection({ locale = "en" }: { locale?: string }) {
 
               {/* Trust strip */}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.58 }}
-                className="flex flex-wrap gap-x-7 gap-y-3 pt-7 border-t border-white/6">
+                className="flex flex-wrap gap-x-7 gap-y-3 pt-7 border-t border-white/10">
                 {[
                   { icon: <ShieldCheck size={12} />, text: "RBI Registered" },
                   { icon: <Zap size={12} />, text: t.home.hero.approval24 },
@@ -296,10 +296,10 @@ export function HeroSection({ locale = "en" }: { locale?: string }) {
         <motion.div
           initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.6 }}
-          className="relative z-10 mt-auto border-t border-white/6 backdrop-blur-2xl"
+          className="relative z-10 mt-auto border-t border-[#ffffff]/10 backdrop-blur-2xl"
           style={{ background: "rgba(6,6,16,0.82)" }}>
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/6">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[#ffffff]/10">
               {[
                 { value: t.home.stats.disbursed, label: t.home.stats.disbursedLbl, sub: isHi ? "वर्ष 2014 से" : "Since 2014" },
                 { value: t.home.stats.customers, label: t.home.stats.customersLbl, sub: isHi ? "उत्तर प्रदेश में" : "Across UP" },

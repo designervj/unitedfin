@@ -1,3 +1,4 @@
 {
+  "/icon.jpg/route": "app/icon.jpg/route.js",
   "/[locale]/page": "app/[locale]/page.js"
 }
