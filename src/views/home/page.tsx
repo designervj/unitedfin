@@ -8,13 +8,17 @@ import { ContactFormSection } from "./sections/ContactFormSection";
 
 export default function Home({ locale }: { locale: string }) {
   return (
-    <main>
+    <main className="scroll-smooth">
       <HeroSection locale={locale} />
       <TrustedSection locale={locale} />
       <ProductsSection locale={locale} />
       <ChairmanMessageSection locale={locale} />
-      <SuccessStoriesSection locale={locale} />
-      <FAQSection locale={locale} />
+      <div id="testimonials">
+        <SuccessStoriesSection locale={locale} />
+      </div>
+      <div id="faq">
+        <FAQSection locale={locale} />
+      </div>
       <ContactFormSection locale={locale} />
     </main>
   );

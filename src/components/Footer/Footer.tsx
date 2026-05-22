@@ -46,11 +46,11 @@ export function Footer() {
     {
       heading: t.common.aboutUs,
       links: [
-        { label: t.common.aboutCompany, href: "/about" },
-        { label: t.common.directors, href: "/about/directors" },
+        { label: t.common.aboutCompany, href: "/about-us" },
+        { label: t.common.directors, href: "/board-of-director" },
         { label: t.common.csr, href: "/about/csr" },
-        { label: currentLocale === "hi" ? "पूछे जाने वाले प्रश्न" : "FAQs", href: "/" },
-        { label: currentLocale === "hi" ? "टेस्टिमोनियल्स" : "Testimonials", href: "/" },
+        { label: currentLocale === "hi" ? "पूछे जाने वाले प्रश्न" : "FAQs", href: "/faqs" },
+        { label: currentLocale === "hi" ? "टेस्टिमोनियल्स" : "Testimonials", href: "/testimonials" },
       ],
     },
     {
@@ -77,7 +77,7 @@ export function Footer() {
       heading: currentLocale === "hi" ? "सूचना" : "Information",
       links: [
         { label: t.common.services, href: "/services" },
-        { label: t.common.directors, href: "/about/directors" },
+        { label: t.common.directors, href: "/board-of-director" },
         { label: t.common.contactUs, href: "/contact" },
         { label: t.common.careers, href: "/contact" },
       ],

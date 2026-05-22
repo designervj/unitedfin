@@ -9,9 +9,13 @@ export const translations = {
       calculateEmi: "Calculate EMI",
       home: "Home",
       aboutUs: "About Us",
-      aboutCompany: "About Our Company",
-      directors: "Board of Directors",
+      aboutCompany: "ABOUT US",
+      directors: "BOARD OF DIRECTOR",
       csr: "CSR & Policies",
+      testimonials: "TESTIMONIALS",
+      faqs: "FAQs",
+      branchLocator: "BRANCH LOCATOR",
+      gallery: "GALLERY",
       services: "Services",
       businessLoan: "Business Loan",
       msmeLoan: "MSME Loan",
@@ -305,32 +309,32 @@ export const translations = {
       }
     },
     aboutPage: {
-      title1: "A Decade of",
-      title2: "Financial Trust.",
-      desc: "Whether you're looking to refurbish your property, buy an asset, or need cash for working capital — we want to help you and your business succeed. Serving Varanasi, Azamgarh, Lalganj & Phoolpur.",
-      ourStory: "Our Story",
-      storyTitle: "Built on a Simple Promise",
-      storyDesc1: "United Finance & Leasing Private Limited was founded in 2014 with a clear purpose — to make credit accessible to those who need it most. We began in New Delhi and quickly expanded operations into Uttar Pradesh, where we identified a significant underserved lending market.",
-      storyDesc2: "Today, we serve thousands of individuals, micro-entrepreneurs, and small businesses with a wide range of loan products — from micro loans as small as ₹5,000 to mortgage loans exceeding ₹50 lakhs. Every product is designed with the customer's genuine need in mind.",
-      mission: "Our Mission",
-      missionDesc: "To empower individuals and MSMEs with quick, affordable financial solutions, driving holistic economic development.",
-      vision: "Our Vision",
-      visionDesc: "To become the most trusted and preferred financial partner for underserved segments across India.",
+      title1: "About Our",
+      title2: "Company",
+      desc: "Trust, Integrity, Transparency and Excellence are at the core foundation of our institution.",
+      ourStory: "OUR STORY",
+      storyTitle: "We enable the dreams of our customers.",
+      storyDesc1: "We stand for Passion, People, Purpose, Principles and Possibilities. We do what we do with earnest integrity and passion, ensuring best-in-class service to our customers. Our people work with a single objective of bringing that smile to your face. Driven by principles, we believe in having complete transparency in our dealings as we understand and cherish the trust customers bestow upon us.",
+      storyDesc2: "Through deep investment in technology and innovation at the core, we strive to create endless possibilities each time and partner in the growth journey of our customers. We believe that good is the enemy of great. Hence, we strive for business excellence and setting up new benchmarks.",
+      mission: "Our Vision & Mission",
+      missionDesc: "To help Individuals & Businesses- Achieve More by offering the “Best-in-class customer-centric products and solutions” most conveniently.",
+      vision: "Our Foundation",
+      visionDesc: "Trust, Integrity, Transparency and Excellence are at the core foundation of our institution.",
       journey: "Our Journey",
       journeyTitle: "Milestones That Define Us",
       milestones: [
         { year: "2014", title: "Foundation", desc: "United Finance & Leasing Pvt. Ltd. was incorporated as an RBI-registered NBFC in New Delhi." },
         { year: "2016", title: "First UP Branch", desc: "Expanded operations into Uttar Pradesh, opening our first branch in Lucknow." },
         { year: "2019", title: "₹100 Cr Milestone", desc: "Crossed ₹100 Crore in total loan disbursements, serving thousands of families." },
-        { year: "2022", title: "Digital Onboarding", desc: "Launched digital onboarding and loan processing for faster customer experience." },
-        { year: "2024", title: "₹500 Cr & Beyond", desc: "Crossed ₹500 Crore in cumulative disbursements with 10,000+ satisfied customers." }
+        { year: "2021", title: "Acquisition & Refresh", desc: "Now, taking these efforts to new heights, We invested in United Finance in 2021." },
+        { year: "2024", title: "Empowering Thousands", desc: "Over the past 5 years, we have had the proud privilege of successfully empowering thousands of dreams." }
       ],
       values: "Our Core Values",
       valuesSub: "What We Stand For",
       valueList: [
-        { title: "Integrity", desc: "We operate with complete transparency — no hidden fees, no surprises." },
-        { title: "Customer First", desc: "Every decision we make starts and ends with what's best for our customers." },
-        { title: "Growth", desc: "We believe in growing together — when you succeed, we succeed." },
+        { title: "Trust", desc: "We operate with complete transparency — no hidden fees, no surprises." },
+        { title: "Integrity", desc: "Every decision we make starts and ends with what's best for our customers." },
+        { title: "Transparency", desc: "We believe in having complete transparency in our dealings." },
         { title: "Excellence", desc: "We pursue the highest standards in service delivery and compliance." }
       ],
       partnerTitle: "Ready to Partner With Us?",
@@ -343,19 +347,19 @@ export const translations = {
       sub: "Meet the visionary leaders steering United Finance towards financial inclusion and sustainable growth.",
       list: [
         {
-          name: "S. K. Singh",
-          role: "Managing Director & Founder",
-          bio: "With over 35 years of rich experience in retail banking and rural finance, Mr. S.K. Singh founded United Finance to bridge the huge credit gap in Northern and Eastern India."
+          name: "Deepak Kumar Rai",
+          role: "Director",
+          bio: "Deepak Kumar Rai is registered with the Ministry of Corporate Affairs as a Director in Indian Companies. Deepak Kumar Rai has the largest number of other directorships with a seat at a total of 4 companies. In total, the company is connected to 3 other companies through its directors."
         },
         {
-          name: "Dr. Ritu Singh",
-          role: "Non-Executive Director",
-          bio: "A renowned academician and social activist, Dr. Ritu Singh oversees our CSR programs and ensures all operations align with environmental and social governance standards."
+          name: "Satyam Rai",
+          role: "Director",
+          bio: "Satyam Rai is registered with the Ministry of Corporate Affairs as a Director in Indian Companies. The DIN (Director Identification Number) of Satyam Rai is 07865796. Currently, he serves as a director in 4 Companies in India, covering industries like Business Services, Education, and Finance."
         },
         {
-          name: "Aniket",
-          role: "Executive Director & Operation Head",
-          bio: "An MBA from a premier institute, Aniket leads the operational expansion and technology implementation, bringing digital efficiency to grassroots lending."
+          name: "Alok Kumar Rai",
+          role: "Director",
+          bio: "Alok Kumar Rai is registered with the Ministry of Corporate Affairs as a Director in Indian Companies. The DIN (Director Identification Number) of Alok Kumar Rai is 07865719. Currently, he serves as a director in 2 Companies in India in the Business Services and Finance sectors."
         }
       ],
       title1: "Board of",
@@ -364,20 +368,19 @@ export const translations = {
       contactBtn: "Contact Our Board",
       board: [
         {
-          role: "Chairman & Managing Director",
-          bio: "With over 35 years of rich experience in retail banking and rural finance, Sh. Rajiv Kumar Gupta oversees the strategic vision and growth of the company."
-        },
-        {
-          role: "Executive Director",
-          bio: "Smt. Priya Gupta manages the operational workflows and compliance guidelines, driving service excellence across all branches."
-        },
-        {
-          role: "Operation Head & Director",
-          bio: "An MBA from a premier institute, Sh. Ankit Verma leads technology implementation and operational expansions."
-        },
-        {
+          name: "Deepak Kumar Rai",
           role: "Director",
-          bio: "Sh. Deepak Misra advises the company on treasury management, regulatory compliances, and policy framing."
+          bio: "Deepak Kumar Rai has the largest number of other directorships with a seat at a total of 4 companies. In total, the company is connected to 3 other companies through its directors."
+        },
+        {
+          name: "Satyam Rai",
+          role: "Director",
+          bio: "Satyam Rai is registered with the Ministry of Corporate Affairs as a Director. The DIN of Satyam Rai is 07865796. He serves as a director in 4 Companies in India."
+        },
+        {
+          name: "Alok Kumar Rai",
+          role: "Director",
+          bio: "Alok Kumar Rai is registered with the Ministry of Corporate Affairs as a Director. The DIN of Alok Kumar Rai is 07865719. He serves as a director in 2 Companies in India."
         }
       ],
       committees: [
@@ -586,9 +589,13 @@ export const translations = {
       calculateEmi: "ईएमआई जानें",
       home: "मुख्य पृष्ठ",
       aboutUs: "हमारे बारे में",
-      aboutCompany: "कंपनी के बारे में",
+      aboutCompany: "हमारे बारे में",
       directors: "निदेशक मंडल",
       csr: "सीएसआर और नीतियां",
+      testimonials: "प्रशंसापत्र",
+      faqs: "सामान्य प्रश्न",
+      branchLocator: "शाखाएं",
+      gallery: "गैलरी",
       services: "ऋण सेवाएं",
       businessLoan: "बिजनेस लोन",
       msmeLoan: "एमएसएमई लोन",

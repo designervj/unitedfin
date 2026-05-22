@@ -22,45 +22,32 @@ export default function BoardOfDirectors({ locale }: { locale: string }) {
 
   const board = [
     {
-      name: isHi ? "श्री राजीव कुमार गुप्ता" : "Sh. Rajiv Kumar Gupta",
+      name: isHi ? "दीपक कुमार राय" : "Deepak Kumar Rai",
       role: t.directorsPage.board[0].role,
-      img: "https://i.pravatar.cc/400?img=51",
+      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
       bio: t.directorsPage.board[0].bio,
       linkedin: "#",
-      email: "chairman@unitedfin.in",
+      email: "info@unitedfin.in",
     },
     {
-      name: isHi ? "श्रीमती प्रिया गुप्ता" : "Smt. Priya Gupta",
+      name: isHi ? "सत्यम राय" : "Satyam Rai",
       role: t.directorsPage.board[1].role,
-      img: "https://i.pravatar.cc/400?img=47",
+      img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
       bio: t.directorsPage.board[1].bio,
       linkedin: "#",
-      email: "ops@unitedfin.in",
+      email: "info@unitedfin.in",
     },
     {
-      name: isHi ? "श्री अंकित वर्मा" : "Sh. Ankit Verma",
+      name: isHi ? "आलोक कुमार राय" : "Alok Kumar Rai",
       role: t.directorsPage.board[2].role,
-      img: "https://i.pravatar.cc/400?img=52",
+      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
       bio: t.directorsPage.board[2].bio,
       linkedin: "#",
-      email: "finance@unitedfin.in",
-    },
-    {
-      name: isHi ? "श्री दीपक मिश्रा" : "Sh. Deepak Misra",
-      role: t.directorsPage.board[3].role,
-      img: "https://i.pravatar.cc/400?img=57",
-      bio: t.directorsPage.board[3].bio,
-      linkedin: "#",
-      email: "board@unitedfin.in",
+      email: "info@unitedfin.in",
     },
   ];
 
-  const committees = [
-    { name: t.directorsPage.committees[0].name, desc: t.directorsPage.committees[0].desc },
-    { name: t.directorsPage.committees[1].name, desc: t.directorsPage.committees[1].desc },
-    { name: t.directorsPage.committees[2].name, desc: t.directorsPage.committees[2].desc },
-    { name: t.directorsPage.committees[3].name, desc: t.directorsPage.committees[3].desc },
-  ];
+  const committees = t.directorsPage.committees || [];
 
   return (
     <main className="min-h-screen bg-white">

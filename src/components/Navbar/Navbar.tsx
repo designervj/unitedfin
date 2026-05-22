@@ -56,11 +56,14 @@ export function Navbar() {
     { label: t.common.home, href: "/" },
     {
       label: t.common.aboutUs,
-      href: "/about",
+      href: "/about-us",
       children: [
-        { label: t.common.aboutCompany, href: "/about" },
-        { label: t.common.directors, href: "/about/directors" },
-        { label: t.common.csr, href: "/about/csr" },
+        { label: t.common.aboutCompany, href: "/about-us" },
+        { label: t.common.directors, href: "/board-of-director" },
+        { label: t.common.testimonials, href: "/testimonials" },
+        { label: t.common.faqs, href: "/faqs" },
+        { label: t.common.branchLocator, href: "/branch-locators" },
+        { label: t.common.gallery, href: "/gallery" },
       ],
     },
     {
